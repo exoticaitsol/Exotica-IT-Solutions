@@ -373,7 +373,7 @@ export default function HomeV1({ c, hideNav = false }) {
       )}
 
       {c.posts.length > 0 && (
-        <section id="stories" style={{ paddingTop: 20 }}>
+        <section id="stories">
           <div className="wrap">
             <div className="head" style={{ marginBottom: 36 }}>
               <div>
