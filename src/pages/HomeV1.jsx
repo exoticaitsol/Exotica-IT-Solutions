@@ -210,7 +210,7 @@ export default function HomeV1({ c, hideNav = false }) {
       {c.stats.length > 0 && (
         <div className="stats">
           <div className="wrap" style={{ gridTemplateColumns: `1.4fr repeat(${c.stats.length},1fr)` }}>
-            <p>{c.stats_heading} <span>{c.stats_subheading}</span></p>
+            <h4>{c.stats_heading} <span>{c.stats_subheading}</span></h4>
             {c.stats.map((s, i) => (
               <div key={i}><Num value={s.stat_number} /><small>{s.stat_label}</small></div>
             ))}

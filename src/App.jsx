@@ -38,6 +38,7 @@ import { DEFAULTS } from "./default";
 import Header from "./Header";
 import HomeV1 from "./pages/HomeV1";
 import useHome from "./useHome";
+import "./App.css"
 
 function App() {
   const { data } = useHome();

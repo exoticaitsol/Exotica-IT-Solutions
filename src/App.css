@@ -1,15 +1,18 @@
 /* Utility classes */
 
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
 body {
-    font-family: Arial, sans-serif;
-    color: #222;
-    line-height: 1.6;
+    font-family: "Inter", sans-serif;
 }
 
 .container {
@@ -18,24 +21,16 @@ body {
     padding: 0 20px;
 }
 
+p {
+    font-family: "Inter", sans-serif !important;
+    font-size: 16px;
+}   
+
 a {
     text-decoration: none;
 }
 
-
 /* Start Header */
-
-header.header {
-    position: absolute;
-    z-index: 9;
-    width: 100%;
-}
-
-header.header ul.navbar li a {
-    padding: 10px 20px;
-    color: #000000;
-    text-decoration: unset;
-}
 
 /* End Header */
 
@@ -46,4 +41,18 @@ header.header ul.navbar li a {
     padding: 200px 0;
 }
 
+.hero h1 {
+    color: #EEF2E6 !important;
+}
+
 /* End Banner Section */
+
+.stats .wrap.rv.in h4 {
+    color: #EEF2E6;
+}
+
+.stats .wrap.rv.in h4 span {
+    color: #70aa26;
+    display: block;
+    margin-top: 10px;
+}
