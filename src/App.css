@@ -39,6 +39,7 @@ a {
 .hero {
     background: url(https://app.exoticaitsolutions.com/wp-content/uploads/2026/10/Hero-Banner.png);
     padding: 200px 0;
+    background-size: cover;
 }
 
 .hero h1 {

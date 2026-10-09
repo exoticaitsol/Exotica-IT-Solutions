@@ -22,7 +22,7 @@ html {
 body {
     background: var(--bg);
     color: var(--ink);
-font-family: "Inter", sans-serif;
+    font-family: "Inter", sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden
 }
@@ -68,7 +68,7 @@ h2 em {
 }
 
 .eye {
-font-size: 14px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: .12em;
     text-transform: uppercase;
@@ -108,7 +108,10 @@ font-size: 14px;
     transition: .25s;
 }
 
-.head h2.rv.in, section#ind h2.rv.in, section#work h2.rv.in, section#talk h2.rv.in {
+.head h2.rv.in,
+section#ind h2.rv.in,
+section#work h2.rv.in,
+section#talk h2.rv.in {
     color: #EEF2E6;
 }
 
@@ -129,13 +132,16 @@ nav {
     left: 0;
     right: 0;
     z-index: 50;
+    background: linear-gradient(#060805cc, transparent);
+    padding: 18px 0;
+    /* max-width: 1420px;
+    margin: 0 auto; */
+}
+
+nav .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 40px;
-    background: linear-gradient(#060805cc, transparent);
-    max-width: 1420px;
-    margin: 0 auto;
 }
 
 .logo {
@@ -186,11 +192,12 @@ nav .links a {
 .hero {
     min-height: 92vh;
     padding: 140px 0 90px;
-    background: radial-gradient(700px 380px at 85% 8%, #5b3fa066, transparent 70%), radial-gradient(600px 300px at 70% 0, #70aa2655, transparent 70%), var(--bg)
+    background: radial-gradient(700px 380px at 85% 8%, #5b3fa066, transparent 70%), radial-gradient(600px 300px at 70% 0, #70aa2655, transparent 70%), var(--bg);
+    background-size: cover;
 }
 
 .hero h1 {
-font-size: 64px;
+    font-size: 64px;
     font-weight: bolder;
     max-width: 720px;
     margin: 22px 0 26px;
@@ -221,7 +228,7 @@ font-size: 64px;
 
 .logos div {
     display: flex;
-    gap: 90px;
+    gap: 40px;
     width: max-content;
     animation: mq 28s linear infinite;
     color: #b9c2ad;
@@ -268,7 +275,7 @@ font-size: 64px;
 }
 
 .stats b {
-font-size: clamp(38px, 4vw, 56px);
+    font-size: clamp(38px, 4vw, 56px);
     font-weight: 800;
     letter-spacing: -.04em;
     display: block;
@@ -305,7 +312,13 @@ font-size: clamp(38px, 4vw, 56px);
     margin-bottom: 56px
 }
 
-#eng span.eye, #ind span.eye, #work span.eye, .why span.eye, #faq span.eye, #stories span.eye, #talk span.eye {
+#eng span.eye,
+#ind span.eye,
+#work span.eye,
+.why span.eye,
+#faq span.eye,
+#stories span.eye,
+#talk span.eye {
     color: #70aa26;
 }
 
@@ -684,17 +697,21 @@ font-size: clamp(38px, 4vw, 56px);
 
 
 
-section#faq, section#talk {
+section#faq,
+section#talk {
     padding-top: 20px;
 }
 
 /* why */
-.why, #faq {
+.why,
+#faq {
     background: #F1F3EA;
 }
+
 .faq div details:last-child {
     margin-bottom: 0 !important;
 }
+
 .mos {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -815,7 +832,7 @@ details {
 }
 
 summary {
-list-style: none;
+    list-style: none;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -841,7 +858,7 @@ details[open] summary:after {
 }
 
 details p {
-color: #52574dc7;
+    color: #52574dc7;
     line-height: 1.4;
     margin-top: 14px;
     font-size: 24px;
@@ -971,6 +988,7 @@ textarea {
     font-size: 16px;
     font-weight: 400;
 }
+
 #stories a.sc.big {
     border: 1px solid rgb(124 166 18 / 39%);
 }
@@ -978,6 +996,7 @@ textarea {
 #stories .head {
     margin-bottom: 56px !important;
 }
+
 input:focus,
 select:focus,
 textarea:focus {
@@ -1207,7 +1226,7 @@ footer {
 }
 
 .logos img {
-    height: 80px;
+    height: 100px;
     width: auto;
 }
 
@@ -1234,4 +1253,69 @@ footer {
 .state small {
     font-size: 12px;
     color: #ff8a8a
+}
+
+@media(max-width:767px) {
+    .hero h1 {
+        font-size: 32px;
+        line-height: 42px
+    }
+
+    .stats .wrap {
+        grid-template-columns: unset !important;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .stats .wrap h4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    section#eng .head, #stories .head {
+        flex-wrap: wrap !important;
+        gap: 20px !important;
+    }
+    .hero {
+    padding: 120px 0 60px !important;
+}
+.ghost, .pill {
+font-size: 14px;
+        width: 100%;
+        text-align: center;
+        display: block;
+}
+.ecard .tx {
+    padding: 18px;
+}
+section {
+    padding: 60px 0;
+}
+.band span {
+    font-size: 16px;
+}
+.leaks .logos {
+    margin-top: 0;
+    padding-bottom: 0;
+}
+.head h2.rv.in, section#ind h2.rv.in, section#work h2.rv.in, section#talk h2.rv.in {
+    font-size: 28px;
+}
+.panel {
+    padding: 20px;
+}
+h2 {
+    font-size: clamp(28px, 4.6vw, 52px);
+}
+summary {
+    font-size: 18px;
+}
+details p {
+    font-size: 16px;
+}
+.sc.big h3 {
+    font-size: 22px;
+}
 }

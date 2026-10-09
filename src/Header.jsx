@@ -23,6 +23,7 @@ function Header() {
 
   return (
     <nav>
+      <div className="container">
       <a className="logo" href={header.site_url || "/"}>
         {header.logo?.url ? <img src={header.logo.url} alt="Exotica" /> : "Exotica"}
       </a>
@@ -30,6 +31,7 @@ function Header() {
         {(Array.isArray(header.menu) ? header.menu : []).map((item) => (
           <a key={item.id} href={item.url}>{item.title}</a>
         ))}
+      </div>
       </div>
     </nav>
   );
