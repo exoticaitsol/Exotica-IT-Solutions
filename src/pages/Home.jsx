@@ -54,7 +54,7 @@ function Home() {
       <div className="container">
 
         {/* Eyebrow */}
-        <p className="hero-eyebrow">
+        <p className="hero-eyebrow text-white">
           {hero.eyebrow}
         </p>
 
