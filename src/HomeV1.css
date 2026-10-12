@@ -132,7 +132,7 @@ nav {
     left: 0;
     right: 0;
     z-index: 50;
-    background: linear-gradient(#060805, #00000005);
+    background: linear-gradient(#060805, #0000007a);
     padding: 18px 0;
     /* max-width: 1420px;
     margin: 0 auto; */
@@ -181,6 +181,31 @@ nav .links a {
     padding: 9px 18px;
     font-size: 12px
 }
+
+
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(35px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 
 @media(max-width:900px) {
     .links a:not(.pill) {
@@ -704,7 +729,7 @@ section#talk {
 
 /* why */
 .why,
-#faq {
+#faq, .overservices {
     background: #F1F3EA;
 }
 
@@ -970,6 +995,11 @@ label {
     letter-spacing: .12em;
     text-transform: uppercase;
     color: #70aa26;
+}
+.overservices span.eye {
+color: #70aa26;
+    margin-bottom: 14px;
+    display: block;
 }
 
 input,
@@ -1319,3 +1349,134 @@ details p {
     font-size: 22px;
 }
 }
+
+
+
+/* Keep the existing card layout and styling */
+
+/* Leak cards: 3 columns, 2 rows */
+.leaks .lgrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* Keep each card's layout */
+.leaks .lgrid .lc {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+  .leaks .lgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 600px) {
+  .leaks .lgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leaks .lc .leak-description {
+  min-width: 0;
+}
+
+.leaks .lc .leak-description p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* Reveal full paragraph when the card opens */
+.leaks .lc.is-open .leak-description p {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+  animation: leakReveal 0.35s ease both;
+}
+
+/* Green background only for the open card */
+.leaks .lc.is-open {
+  background-color: #70ad25;
+  transition: background-color 0.35s ease;
+}
+
+.lgrid .leak-description p {display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;}
+
+.lgrid .leak-description.expanded p {
+    display: block;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: visible;
+}
+
+.lgrid .is-open {
+    background: #70aa26;
+}
+
+.lgrid .is-open .ic {
+    background: #000;
+}
+
+.lgrid .is-open span.nm {
+    color: #06100a30;
+}
+
+.lgrid h3 {
+    color: #000;
+}
+
+.lgrid .is-open p {
+    color: #000;
+}
+
+.lgrid .is-open .lk span {
+    color: #06100acc;
+}
+
+.pan { position: relative; overflow: hidden; }
+
+.pan .pvid {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+opacity: 0;
+transition: opacity .4s ease;
+z-index: 0;
+pointer-events: none;
+}
+.pan.on .pvid { opacity: 1; }
+
+.pan .n,
+.pan > div { position: relative; z-index: 1; }
+
+@keyframes leakReveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaks .lc.is-open .leak-description p {
+    animation: none;
+  }
+}
+
+
