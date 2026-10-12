@@ -343,25 +343,19 @@ export default function HomeV1({ c, hideNav = false }) {
               />
             </h2>
           </div>
+
           <div className="lgrid">
             {c.leaks.map((l, i) => {
               const isOpen = activeLeak === i;
 
+              const toggleLeak = () => {
+                setActiveLeak(isOpen ? null : i);
+              };
+
               return (
                 <div
                   key={i}
-                  className={`lc${isOpen ? " is-open" : ""
-                    }`}
-                  onClick={() => setActiveLeak(isOpen ? null : i)}
-                  role="button"
-                  tabIndex={0}
-                  aria-expanded={isOpen}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setActiveLeak(isOpen ? null : i);
-                    }
-                  }}
+                  className={`lc${isOpen ? " is-open" : ""}`}
                 >
                   <div className="ic" />
 
@@ -375,16 +369,31 @@ export default function HomeV1({ c, hideNav = false }) {
 
                   {l.leak_link_label && (
                     <div className="lk">
-                      <span>
+                      <button
+                        type="button"
+                        className="leak-toggle-label"
+                        onClick={toggleLeak}
+                        aria-expanded={isOpen}
+                      >
                         {isOpen ? "Tap to close" : l.leak_link_label}
-                      </span>
-                      <b>{isOpen ? "−" : "+"}</b>
+                      </button>
+
+                      <button
+                        type="button"
+                        className="leak-toggle-icon"
+                        onClick={toggleLeak}
+                        aria-label={isOpen ? "Close details" : "Open details"}
+                        aria-expanded={isOpen}
+                      >
+                        {isOpen ? "−" : "+"}
+                      </button>
                     </div>
                   )}
                 </div>
               );
             })}
           </div>
+
         </div>
       </section>
 

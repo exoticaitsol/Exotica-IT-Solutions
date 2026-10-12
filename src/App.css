@@ -232,6 +232,57 @@ section#talk h2, .blog-section h2, #work h2 {
   background: #75b82a;
   border-color: #75b82a;
 }
+
+
+/* Only the label and plus/minus control are clickable */
+.leaks .leak-toggle-label,
+.leaks .leak-toggle-icon {
+  cursor: pointer;
+  font: inherit;
+}
+
+.leaks .leak-toggle-label {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.leaks .leak-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.overservices .leaks .lk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.overservices .lc .lk button.leak-toggle-label {
+    font-size: 14px;
+}
+
+.overservices .lc .lk button.leak-toggle-icon {
+    font-size: 20px;
+    border: 1px solid #5c6552;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+}
+
 /* ===== Case studies — App.css ke sabse neeche paste karein ===== */
 .cs-wrap{
 --cs-font:'Space Grotesk','Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
