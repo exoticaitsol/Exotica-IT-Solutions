@@ -132,7 +132,7 @@ nav {
     left: 0;
     right: 0;
     z-index: 50;
-    background: linear-gradient(#060805cc, transparent);
+    background: linear-gradient(#060805, #00000005);
     padding: 18px 0;
     /* max-width: 1420px;
     margin: 0 auto; */
@@ -1014,8 +1014,8 @@ form .pill {
 /* footer */
 footer {
     border-top: 1px solid var(--line);
-    padding: 60px 0 36px;
-    background: var(--bg2)
+    padding: 50px 0 22px;
+    background: var(--bg2);
 }
 
 .fg {

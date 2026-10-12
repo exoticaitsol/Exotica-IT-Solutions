@@ -39,6 +39,7 @@ import Header from "./Header";
 import HomeV1 from "./pages/HomeV1";
 import useHome from "./useHome";
 import "./App.css"
+import Footer from "./Footer";
 
 function App() {
   const { data } = useHome();
@@ -54,6 +55,7 @@ function App() {
   return <>
     <Header />
     <HomeV1 c={content} hideNav />
+     <Footer />
   </>;
 }
 

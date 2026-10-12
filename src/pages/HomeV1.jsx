@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import '../HomeV1.css'
 import { API } from '../useHome'
 import HeroCanvas from '../HeroCanvas'
+import BlogSection from "./BlogSection";
 
 /* ---------- helpers ---------- */
 const lines = (s) => (s || '').split('\n').map((x) => x.trim()).filter(Boolean)
@@ -371,36 +372,9 @@ export default function HomeV1({ c, hideNav = false }) {
           </div>
         </section>
       )}
-
-      {c.posts.length > 0 && (
-        <section id="stories">
-          <div className="wrap">
-            <div className="head" style={{ marginBottom: 36 }}>
-              <div>
-                {c.blog_eyebrow && <span className="eye">{c.blog_eyebrow}</span>}
-                <h2 style={{ marginTop: 14, fontSize: 'clamp(30px,3.6vw,46px)' }}>{c.blog_title}</h2>
-              </div>
-              {c.blog_all_label && <a className="ghost" href={c.blog_all_url}>{c.blog_all_label}</a>}
-            </div>
-            <div className="sg">
-              {c.posts.map((p, i) => (
-                <a
-                  key={i}
-                  href={p.post_url || '#'}
-                  className={'sc ' + (i === 0 ? 'big' : i % 2 ? 's1' : 's2')}
-                  style={p.post_image ? {
-                    backgroundImage: `url(${p.post_image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  } : undefined}
-                >
-                  <h3>{p.post_title}</h3>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      
+      <BlogSection />
+      
 
       {(c.contact_title || c.contact_big) && (
         <section id="talk" className="ct">
@@ -447,31 +421,6 @@ export default function HomeV1({ c, hideNav = false }) {
           </div>
         </section>
       )}
-
-      <footer>
-        <div className="wrap">
-          <div className="fg">
-            <div>
-              <div className="logo" style={{ color: '#fff' }}>
-                {c.logo_image ? <img src={c.logo_image} alt={c.logo_text} /> : <>{c.logo_text}{c.logo_tagline && <small>{c.logo_tagline}</small>}</>}
-              </div>
-              {c.footer_text && <p style={{ marginTop: 14, maxWidth: 240 }}>{c.footer_text}</p>}
-              {c.footer_badges.length > 0 && (
-                <div className="iso">
-                  {c.footer_badges.map((b, i) => <img key={i} src={b.badge_image} alt="" />)}
-                </div>
-              )}
-            </div>
-            {c.footer_columns.map((col, i) => (
-              <div key={i}>
-                <b>{col.column_title}</b>
-                {pairs(col.column_links).map(([label, url], j) => <a key={j} href={url || '#'}>{label}</a>)}
-              </div>
-            ))}
-          </div>
-          {c.footer_copyright && <p className="copy">{c.footer_copyright}</p>}
-        </div>
-      </footer>
     </>
   )
 }
