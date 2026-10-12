@@ -16,6 +16,14 @@ const pairs = (s) =>
     return i < 0 ? [l, ''] : [l.slice(0, i).trim(), l.slice(i + 1).trim()]
   })
 const pad = (n) => String(n).padStart(2, '0')
+// Stats: supports "4.8|Client rating" lines OR value / label on separate lines
+const statPairs = (s) => {
+  const ls = lines(s)
+  if (ls.some((l) => l.includes('|'))) return pairs(s).filter(([v, l]) => v && l)
+  const out = []
+  for (let i = 0; i + 1 < ls.length; i += 2) out.push([ls[i], ls[i + 1]])
+  return out
+}
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 // Title with a highlighted (green) word
@@ -73,6 +81,41 @@ const IND_BG = [
   'radial-gradient(circle at 70% 60%,#4d7d16,#0a1005 65%)',
 ]
 const bgImg = (url, fallback) => (url ? `center/cover url(${url})` : fallback)
+function IndPanel({ p, i, active, onEnter }) {
+  const vref = useRef(null)
+
+  useEffect(() => {
+    const v = vref.current
+    if (!v) return
+    if (active) {
+      v.play().catch(() => { })
+    } else {
+      v.pause()
+      v.currentTime = 0
+    }
+  }, [active])
+
+  return (
+    <div className={'pan' + (active ? ' on' : '')} onMouseEnter={onEnter}>
+      <i style={{ background: bgImg(p.industry_image, IND_BG[i % IND_BG.length]) }} />
+      {p.industry_video && (
+        <video
+          ref={vref}
+          className="pvid"
+          src={p.industry_video}
+          poster={p.industry_image || undefined}
+          muted
+          loop
+          playsInline
+          preload="none"
+        />
+      )}
+      <span className="n">{pad(i + 1)}</span>
+      <div><h4>{p.industry_name}</h4></div>
+    </div>
+  )
+}
+
 
 /* ---------- page-wide effects: reveal, cursor, 3D tilt ---------- */
 const REVEAL = 'section h2,.ecard,.lc,.band,.tile,details,.audit,.sc,.panel,.tabs,.ind,.lede,.stats .wrap'
@@ -199,13 +242,39 @@ export default function HomeV1({ c, hideNav = false }) {
           )}
           <div className="wrap">
             {c.hero_eyebrow && <span className="eye">{c.hero_eyebrow}</span>}
+
             <h1>
-              {heroLines.map((l, i) => (
-                <span key={i} className={'ln' + (ready ? ' in' : '')} style={{ transitionDelay: i * 160 + 'ms' }}>
-                  <span style={{ transitionDelay: i * 160 + 'ms' }}>{l.trim()}</span>
+              {heroLines.map((line, lineIndex) => (
+                <span
+                  key={lineIndex}
+                  className={"ln" + (ready ? " in" : "")}
+                >
+                  {line.trim().split(/\s+/).map((word, wordIndex) => {
+                    const wordDelay = (lineIndex * 4 + wordIndex) * 180;
+
+                    return (
+                      <span className="hero-word" key={wordIndex}>
+                        {Array.from(word).map((letter, letterIndex) => {
+                          const delay = wordDelay + letterIndex * 45;
+
+                          return (
+                            <span
+                              className="hero-letter"
+                              key={letterIndex}
+                              style={{ transitionDelay: `${delay}ms` }}
+                            >
+                              {letter}
+                            </span>
+                          );
+                        })}
+                        {" "}
+                      </span>
+                    );
+                  })}
                 </span>
               ))}
             </h1>
+
             {c.hero_subtitle && <p>{c.hero_subtitle}</p>}
             <div className="cta">
               {c.hero_cta_label && <a className="pill" href={c.hero_cta_url}>{c.hero_cta_label}</a>}
@@ -236,7 +305,7 @@ export default function HomeV1({ c, hideNav = false }) {
                 {c.ai_eyebrow && <span className="eye">{c.ai_eyebrow}</span>}
                 <h2 data-reveal style={{ marginTop: 14 }}><Hl text={c.ai_title} hl={c.ai_highlight} /></h2>
               </div>
-              {c.ai_text && <p className="lede">{c.ai_text}</p>}
+              {c.ai_text && <p data-reveal className="lede">{c.ai_text}</p>}
             </div>
             <div className="eng">
               {c.ai_cards.map((k, i) => (
@@ -260,65 +329,64 @@ export default function HomeV1({ c, hideNav = false }) {
 
 
 
-<section className="overservices">
-  <div className="container"> 
-    <div className="leaks-heading">
-  {c.leaks_eyebrow && (
-    <span className="eye">{c.leaks_eyebrow}</span>
-  )}
+      <section className="overservices">
+        <div className="container">
+          <div className="leaks-heading">
+            {c.leaks_eyebrow && (
+              <span className="eye">{c.leaks_eyebrow}</span>
+            )}
 
-  <h2>
-    <Hl
-      text={c.leaks_title}
-      hl={c.leaks_highlight}
-    />
-  </h2>
-</div>
-    <div className="lgrid">
-  {c.leaks.map((l, i) => {
-    const isOpen = activeLeak === i;
-
-    return (
-      <div
-        key={i}
-        className={`lc${
-          isOpen ? " is-open" : ""
-        }`}
-        onClick={() => setActiveLeak(isOpen ? null : i)}
-        role="button"
-        tabIndex={0}
-        aria-expanded={isOpen}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            setActiveLeak(isOpen ? null : i);
-          }
-        }}
-      >
-        <div className="ic" />
-
-        <span className="nm">{pad(i + 1)}</span>
-
-        <h3>{l.leak_title}</h3>
-
-        <div className={`leak-description ${isOpen ? "expanded" : ""}`}>
-          <p>{l.leak_text}</p>
-        </div>
-
-        {l.leak_link_label && (
-          <div className="lk">
-            <span>
-              {isOpen ? "Tap to close" : l.leak_link_label}
-            </span>
-            <b>↗</b>
+            <h2 data-reveal>
+              <Hl
+                text={c.leaks_title}
+                hl={c.leaks_highlight}
+              />
+            </h2>
           </div>
-        )}
-      </div>
-    );
-  })}
-  </div>
-</div>
-</section>
+          <div className="lgrid">
+            {c.leaks.map((l, i) => {
+              const isOpen = activeLeak === i;
+
+              return (
+                <div
+                  key={i}
+                  className={`lc${isOpen ? " is-open" : ""
+                    }`}
+                  onClick={() => setActiveLeak(isOpen ? null : i)}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isOpen}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveLeak(isOpen ? null : i);
+                    }
+                  }}
+                >
+                  <div className="ic" />
+
+                  <span className="nm">{pad(i + 1)}</span>
+
+                  <h3>{l.leak_title}</h3>
+
+                  <div className={`leak-description ${isOpen ? "expanded" : ""}`}>
+                    <p>{l.leak_text}</p>
+                  </div>
+
+                  {l.leak_link_label && (
+                    <div className="lk">
+                      <span>
+                        {isOpen ? "Tap to close" : l.leak_link_label}
+                      </span>
+                      <b>{isOpen ? "−" : "+"}</b>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
 
 
@@ -329,11 +397,13 @@ export default function HomeV1({ c, hideNav = false }) {
             <h2 data-reveal style={{ margin: '14px 0 50px' }}><Hl text={c.industries_title} hl={c.industries_highlight} /></h2>
             <div className="ind">
               {c.industries.map((p, i) => (
-                <div className={'pan' + (i === activePan ? ' on' : '')} key={i} onMouseEnter={() => setPan(i)}>
-                  <i style={{ background: bgImg(p.industry_image, IND_BG[i % IND_BG.length]) }} />
-                  <span className="n">{pad(i + 1)}</span>
-                  <div><h4>{p.industry_name}</h4></div>
-                </div>
+                <IndPanel
+                  key={i}
+                  p={p}
+                  i={i}
+                  active={i === activePan}
+                  onEnter={() => setPan(i)}
+                />
               ))}
             </div>
           </div>
@@ -344,28 +414,34 @@ export default function HomeV1({ c, hideNav = false }) {
         <section id="work" style={{ background: 'var(--bg2)' }}>
           <div className="wrap">
             {c.cases_eyebrow && <span className="eye">{c.cases_eyebrow}</span>}
-            <h2 data-reveal style={{ marginTop: 14 }}><Hl text={c.cases_title} hl={c.cases_highlight} /></h2>
-            <div className="cs">
-              <div className="tabs">
+            <h2 style={{ marginTop: 14 }}><Hl text={c.cases_title} hl={c.cases_highlight} /></h2>
+            <div className="cs-wrap">
+              <div className="cs-tabs">
                 {c.cases.map((k, i) => (
-                  <button key={i} className={i === ci ? 'on' : ''} onClick={() => setCi(i)}>{k.case_tab}</button>
+                  <button key={i} type="button" className={'cs-tab' + (i === ci ? ' on' : '')} onClick={() => setCi(i)}>
+                    {k.case_tab}
+                  </button>
                 ))}
               </div>
-              <div
-                className="panel"
-                style={cs.case_image ? {
-                  backgroundImage: `linear-gradient(135deg,#0D110Af0 50%,#1c2a10aa),url(${cs.case_image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                } : undefined}
-              >
-                <span className="eye">{cs.case_kicker}</span>
-                <h3>{cs.case_heading}</h3>
-                <p>{cs.case_text}</p>
-                <div className="mets">
-                  {pairs(cs.case_stats).map(([v, l], i) => <div key={i}><b>{v}</b><span>{l}</span></div>)}
+
+              <div className="cs-panel">
+                {cs.case_image && <div className="cs-img" style={{ backgroundImage: `url(${cs.case_image})` }} />}
+                <div className="cs-body">
+                  {cs.case_kicker && <span className="cs-kicker">{cs.case_kicker}</span>}
+                  <h3>{cs.case_heading}</h3>
+                  <p>{cs.case_text}</p>
+                  <div className="cs-stats">
+                    {statPairs(cs.case_stats).map(([v, l], i) => (
+                      <div className="cs-stat" key={i}>
+                        <strong>{v}</strong>
+                        <em>{l}</em>
+                      </div>
+                    ))}
+                  </div>
+                  {cs.case_button_label && (
+                    <a className="cs-btn" href={cs.case_button_url || '#talk'}>{cs.case_button_label} →</a>
+                  )}
                 </div>
-                {cs.case_button_label && <a className="pill" href={cs.case_button_url || '#talk'}>{cs.case_button_label}</a>}
               </div>
             </div>
           </div>
@@ -377,7 +453,7 @@ export default function HomeV1({ c, hideNav = false }) {
           <div className="wrap">
             {c.why_eyebrow && <span className="eye">{c.why_eyebrow}</span>}
             <h2 data-reveal style={{ margin: '14px 0' }}>{c.why_title}</h2>
-            {c.why_text && <p className="lede">{c.why_text}</p>}
+            {c.why_text && <p data-reveal className="lede">{c.why_text}</p>}
             <div className="mos">
               {c.why_cards.map((w, i) => (
                 <div className={'tile t' + ((i % 4) + 1)} key={i}>
@@ -416,9 +492,9 @@ export default function HomeV1({ c, hideNav = false }) {
           </div>
         </section>
       )}
-      
+
       <BlogSection />
-      
+
 
       {(c.contact_title || c.contact_big) && (
         <section id="talk" className="ct">
@@ -429,7 +505,7 @@ export default function HomeV1({ c, hideNav = false }) {
               <div className="lets" aria-label={c.contact_big}>
                 {[...c.contact_big].map((ch, i) => (ch === ' ' ? ' ' : <span key={i}>{ch}</span>))}
               </div>
-              {c.contact_text && <p className="lede">{c.contact_text}</p>}
+              {c.contact_text && <p data-reveal className="lede">{c.contact_text}</p>}
             </div>
             <div>
               {status === 'ok' ? (
@@ -468,22 +544,22 @@ export default function HomeV1({ c, hideNav = false }) {
     </>
   )
   useEffect(() => {
-  const elements = document.querySelectorAll("[data-reveal]");
+    const elements = document.querySelectorAll("[data-reveal]");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-  elements.forEach((element) => observer.observe(element));
+    elements.forEach((element) => observer.observe(element));
 
-  return () => observer.disconnect();
-}, []);
+    return () => observer.disconnect();
+  }, []);
 }

@@ -185,25 +185,25 @@ nav .links a {
 
 
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(35px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0;
+    transform: translateY(35px);
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-reveal].is-visible {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+    [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 
@@ -224,7 +224,7 @@ nav .links a {
 .hero h1 {
     font-size: 64px;
     font-weight: bolder;
-    max-width: 720px;
+    max-width: 750px;
     margin: 22px 0 26px;
     line-height: 70px;
 }
@@ -508,7 +508,8 @@ nav .links a {
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-weight: 400
+    font-weight: 400;
+    font-size: 18px;
 }
 
 .lc.hl {
@@ -729,7 +730,8 @@ section#talk {
 
 /* why */
 .why,
-#faq, .overservices {
+#faq,
+.overservices {
     background: #F1F3EA;
 }
 
@@ -867,6 +869,7 @@ summary {
     letter-spacing: -.02em;
     color: #000;
     font-family: "Archivo Black", sans-serif !important;
+    align-items: center;
 }
 
 summary::-webkit-details-marker {
@@ -874,8 +877,13 @@ summary::-webkit-details-marker {
 }
 
 summary:after {
-    content: "⌄";
-    color: var(--mut)
+    content: "";
+    color: var(--mut);
+    background-image: url("https://app.exoticaitsolutions.com/wp-content/uploads/2026/10/arrowdown.png");
+    width: 15px;
+    height: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 details[open] summary:after {
@@ -996,8 +1004,9 @@ label {
     text-transform: uppercase;
     color: #70aa26;
 }
+
 .overservices span.eye {
-color: #70aa26;
+    color: #70aa26;
     margin-bottom: 14px;
     display: block;
 }
@@ -1149,8 +1158,10 @@ footer {
 }
 
 .hero h1 .ln {
-    display: block;
-    overflow: hidden
+    display: flex;
+    overflow: hidden;
+    flex-wrap: wrap;
+    column-gap: 20px;
 }
 
 .hero h1 .ln>span {
@@ -1297,57 +1308,75 @@ footer {
         flex-wrap: wrap;
         justify-content: center;
     }
-    .stats .wrap h4 {
-    flex: 0 0 100%;
-    max-width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
-}
 
-    section#eng .head, #stories .head {
+    .stats .wrap h4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    section#eng .head,
+    #stories .head {
         flex-wrap: wrap !important;
         gap: 20px !important;
     }
+
     .hero {
-    padding: 120px 0 60px !important;
-}
-.ghost, .pill {
-font-size: 14px;
+        padding: 120px 0 60px !important;
+    }
+
+    .ghost,
+    .pill {
+        font-size: 14px;
         width: 100%;
         text-align: center;
         display: block;
-}
-.ecard .tx {
-    padding: 18px;
-}
-section {
-    padding: 60px 0;
-}
-.band span {
-    font-size: 16px;
-}
-.leaks .logos {
-    margin-top: 0;
-    padding-bottom: 0;
-}
-.head h2.rv.in, section#ind h2.rv.in, section#work h2.rv.in, section#talk h2.rv.in {
-    font-size: 28px;
-}
-.panel {
-    padding: 20px;
-}
-h2 {
-    font-size: clamp(28px, 4.6vw, 52px);
-}
-summary {
-    font-size: 18px;
-}
-details p {
-    font-size: 16px;
-}
-.sc.big h3 {
-    font-size: 22px;
-}
+    }
+
+    .ecard .tx {
+        padding: 18px;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    .band span {
+        font-size: 16px;
+    }
+
+    .leaks .logos {
+        margin-top: 0;
+        padding-bottom: 0;
+    }
+
+    .head h2.rv.in,
+    section#ind h2.rv.in,
+    section#work h2.rv.in,
+    section#talk h2.rv.in {
+        font-size: 28px;
+    }
+
+    .panel {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: clamp(28px, 4.6vw, 52px);
+    }
+
+    summary {
+        font-size: 18px;
+    }
+
+    details p {
+        font-size: 16px;
+    }
+
+    .sc.big h3 {
+        font-size: 22px;
+    }
 }
 
 
@@ -1356,62 +1385,67 @@ details p {
 
 /* Leak cards: 3 columns, 2 rows */
 .leaks .lgrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
 }
 
 /* Keep each card's layout */
 .leaks .lgrid .lc {
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 /* Tablet: 2 columns */
 @media (max-width: 900px) {
-  .leaks .lgrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+    .leaks .lgrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 /* Mobile: 1 column */
 @media (max-width: 600px) {
-  .leaks .lgrid {
-    grid-template-columns: 1fr;
-  }
+    .leaks .lgrid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .leaks .lc .leak-description {
-  min-width: 0;
+    min-width: 0;
 }
 
 .leaks .lc .leak-description p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
-  margin: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    margin: 0;
 }
 
 /* Reveal full paragraph when the card opens */
 .leaks .lc.is-open .leak-description p {
-  display: block;
-  -webkit-line-clamp: unset;
-  line-clamp: unset;
-  overflow: visible;
-  animation: leakReveal 0.35s ease both;
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+    animation: leakReveal 0.35s ease both;
 }
 
 /* Green background only for the open card */
 .leaks .lc.is-open {
-  background-color: #70ad25;
-  transition: background-color 0.35s ease;
+    background-color: #70ad25;
+    transition: background-color 0.35s ease;
 }
 
-.lgrid .leak-description p {display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;}
+.lgrid .leak-description p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
 .lgrid .leak-description.expanded p {
     display: block;
@@ -1444,39 +1478,86 @@ details p {
     color: #06100acc;
 }
 
-.pan { position: relative; overflow: hidden; }
+.pan {
+    position: relative;
+    overflow: hidden;
+}
 
 .pan .pvid {
-position: absolute;
-inset: 0;
-width: 100%;
-height: 100%;
-object-fit: cover;
-opacity: 0;
-transition: opacity .4s ease;
-z-index: 0;
-pointer-events: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .4s ease;
+    z-index: 0;
+    pointer-events: none;
 }
-.pan.on .pvid { opacity: 1; }
+
+.pan.on .pvid {
+    opacity: 1;
+}
 
 .pan .n,
-.pan > div { position: relative; z-index: 1; }
+.pan>div {
+    position: relative;
+    z-index: 1;
+}
 
 @keyframes leakReveal {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .leaks .lc.is-open .leak-description p {
-    animation: none;
+    .leaks .lc.is-open .leak-description p {
+        animation: none;
+    }
+}
+
+
+
+
+
+/* Letter-by-letter fade-in */
+.hero-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.ln.in .hero-letter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
 
+.hero h1 .ln {
+    display: flex;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
