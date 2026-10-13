@@ -242,7 +242,7 @@ export default function HomeV1({ c, hideNav = false }) {
       setEyebrowTypedCount((count) =>
         Math.min(count + 1, eyebrowCharacters.length)
       );
-    }, 2);
+    }, 20);
 
     return () => clearTimeout(timer);
   }, [heroStep, eyebrowTypedCount, eyebrowCharacters.length]);
