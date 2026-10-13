@@ -38,7 +38,7 @@ a {
 
 .hero {
     background: url(https://app.exoticaitsolutions.com/wp-content/uploads/2026/10/Hero-Banner.png);
-    padding: 200px 0;
+    padding: 100px 0 80px;
     background-size: cover;
 }
 
@@ -133,7 +133,7 @@ section#talk h2, .blog-section h2, #work h2 {
 .blog-feature-card {
   position: relative;
   isolation: isolate;
-  min-height: 190px;
+  min-height: 250px;
   background: #111510;
 }
 
@@ -351,6 +351,36 @@ background:var(--lime,#b8f233);color:#0d110a;transition:transform .2s,opacity .2
 }
 .cs-btn:hover{transform:translateY(-2px);opacity:.9}
 
+
+
+.hero-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.ln.in .hero-letter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter {
+    transition: none;
+    transform: none;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter {
+    transition: none;
+    transform: none;
+  }
+}
+
+
 @media (max-width: 767px) {
   .blog-feature-card,
   .blog-feature-card:first-child {
@@ -395,4 +425,55 @@ background:var(--lime,#b8f233);color:#0d110a;transition:transform .2s,opacity .2
     display: flex;
     flex-wrap: wrap;
 }
+}
+
+/* Fix hero typewriter visibility and letter spacing */
+.hero h1 .hero-letter {
+  display: inline-block;
+  letter-spacing: normal !important;
+  margin: 0 !important;
+  opacity: 0 !important;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.hero h1 .ln.in .hero-letter.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+.hero h1 .ln {
+  /* display: block; */
+  white-space: normal;
+}
+
+.hero h1 .hero-letter {
+  white-space: pre;
+}
+
+.hero-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hero-wrap .hero-vedio {
+    flex: 0 0 45%;
+    max-width: 45%;
+}
+
+.hero-wrap .hero-vedio video {
+    position: relative;
+    border-radius: 20px;
+}
+.hero-wrap .eye {
+    color: #70aa26;
+}
+
+/* Keep each word together during typewriter animation */
+.hero h1 .hero-word {
+  white-space: nowrap;
+}
+
+.hero h1 .hero-letter {
+  display: inline-block;
+  white-space: pre;
 }

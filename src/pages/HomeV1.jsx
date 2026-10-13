@@ -85,6 +85,7 @@ function IndPanel({ p, i, active, onEnter }) {
   const vref = useRef(null)
 
   useEffect(() => {
+
     const v = vref.current
     if (!v) return
     if (active) {
@@ -94,6 +95,7 @@ function IndPanel({ p, i, active, onEnter }) {
       v.currentTime = 0
     }
   }, [active])
+
 
   return (
     <div className={'pan' + (active ? ' on' : '')} onMouseEnter={onEnter}>
@@ -118,7 +120,7 @@ function IndPanel({ p, i, active, onEnter }) {
 
 
 /* ---------- page-wide effects: reveal, cursor, 3D tilt ---------- */
-const REVEAL = 'section h2,.ecard,.lc,.band,.tile,details,.audit,.sc,.panel,.tabs,.ind,.lede,.stats .wrap'
+const REVEAL = 'section h2,.ecard,.lc,.band,.tile,details,.audit,.sc,.panel,.tabs,.ind,.lede,.stats,.wrap,.blog-section,.hero,.cta,.ctg,.mos,.cs-wrap,.cs-panel,.cs-tabs,.cs-body,.cs-img,.cs-stats,.cs-btn,.why .tile,form,footer'
 
 function usePageEffects(content) {
   useEffect(() => {
@@ -189,12 +191,42 @@ export default function HomeV1({ c, hideNav = false }) {
   const [ready, setReady] = useState(false)
   useEffect(() => { const t = setTimeout(() => setReady(true), 200); return () => clearTimeout(t) }, [])
 
+  const [typedCount, setTypedCount] = useState(0)
+
   const [pan, setPan] = useState(1)
   const [ci, setCi] = useState(0)
   const [form, setForm] = useState({ name: '', email: '', launch: '', message: '', website: '' })
   const [status, setStatus] = useState('idle')
 
   const heroLines = c.hero_title ? c.hero_title.split('|') : []
+
+
+  const heroCharacters = heroLines.map((line) =>
+    Array.from(line.trim())
+  )
+
+  const totalHeroLetters = heroCharacters.reduce(
+    (total, line) => total + line.length,
+    0
+  )
+
+
+useEffect(() => {
+  if (totalHeroLetters === 0) return
+  if (typedCount >= totalHeroLetters) return
+
+  const timer = setTimeout(() => {
+    setTypedCount((count) =>
+      Math.min(count + 1, totalHeroLetters)
+    )
+  }, 65)
+
+  return () => clearTimeout(timer)
+}, [typedCount, totalHeroLetters])
+
+
+
+
   const activePan = pan < c.industries.length ? pan : 0
   const cs = c.cases.length ? c.cases[Math.min(ci, c.cases.length - 1)] : null
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
@@ -235,50 +267,70 @@ export default function HomeV1({ c, hideNav = false }) {
 
       {(c.hero_title || c.hero_subtitle || c.hero_eyebrow) && (
         <header className="hero">
-          {c.hero_video ? (
-            <video src={c.hero_video} poster={c.hero_poster || undefined} autoPlay muted loop playsInline />
-          ) : (
-            <HeroCanvas />
-          )}
-          <div className="wrap">
-            {c.hero_eyebrow && <span className="eye">{c.hero_eyebrow}</span>}
+          <div className="wrap hero-wrap">
+            <div className="hero-content">
+              {c.hero_eyebrow && <span className="eye">{c.hero_eyebrow}</span>}
 
-            <h1>
-              {heroLines.map((line, lineIndex) => (
+
+             
+<h1>
+  {(() => {
+    let charIndex = 0;
+
+    return heroLines.map((line, lineIndex) => (
+      <span
+        key={lineIndex}
+        className={"ln" + (ready ? " in" : "")}
+      >
+        {line.trim().split(/(\s+)/).map((token, tokenIndex) => {
+          const isSpace = /^\s+$/.test(token);
+
+          const renderLetters = (text) =>
+            Array.from(text).map((letter, letterIndex) => {
+              const currentIndex = charIndex++;
+              const isVisible = currentIndex < typedCount;
+
+              return (
                 <span
-                  key={lineIndex}
-                  className={"ln" + (ready ? " in" : "")}
+                  key={letterIndex}
+                  className={
+                    "hero-letter" + (isVisible ? " is-visible" : "")
+                  }
                 >
-                  {line.trim().split(/\s+/).map((word, wordIndex) => {
-                    const wordDelay = (lineIndex * 4 + wordIndex) * 180;
-
-                    return (
-                      <span className="hero-word" key={wordIndex}>
-                        {Array.from(word).map((letter, letterIndex) => {
-                          const delay = wordDelay + letterIndex * 45;
-
-                          return (
-                            <span
-                              className="hero-letter"
-                              key={letterIndex}
-                              style={{ transitionDelay: `${delay}ms` }}
-                            >
-                              {letter}
-                            </span>
-                          );
-                        })}
-                        {" "}
-                      </span>
-                    );
-                  })}
+                  {letter}
                 </span>
-              ))}
-            </h1>
+              );
+            });
 
-            {c.hero_subtitle && <p>{c.hero_subtitle}</p>}
-            <div className="cta">
-              {c.hero_cta_label && <a className="pill" href={c.hero_cta_url}>{c.hero_cta_label}</a>}
-              {c.hero_secondary_label && <a className="ghost" href={c.hero_secondary_url}>{c.hero_secondary_label}</a>}
+          return (
+            <span
+              key={tokenIndex}
+              className="hero-word"
+            >
+              {isSpace
+                ? "\u00A0".repeat(token.length)
+                : renderLetters(token)}
+            </span>
+          );
+        })}
+      </span>
+    ));
+  })()}
+</h1>
+
+
+              {c.hero_subtitle && <p>{c.hero_subtitle}</p>}
+              <div className="cta">
+                {c.hero_cta_label && <a className="pill" href={c.hero_cta_url}>{c.hero_cta_label}</a>}
+                {c.hero_secondary_label && <a className="ghost" href={c.hero_secondary_url}>{c.hero_secondary_label}</a>}
+              </div>
+            </div>
+            <div className="hero-vedio">
+              {c.hero_video ? (
+                <video src={c.hero_video} poster={c.hero_poster || undefined} autoPlay muted loop playsInline />
+              ) : (
+                <HeroCanvas />
+              )}
             </div>
           </div>
         </header>
