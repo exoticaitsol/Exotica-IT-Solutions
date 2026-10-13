@@ -365,6 +365,18 @@ background:var(--lime,#b8f233);color:#0d110a;transition:transform .2s,opacity .2
   transform: translateY(0);
 }
 
+
+.hero-eyebrow-typewriter .hero-eyebrow-letter {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.hero-eyebrow-typewriter .hero-eyebrow-letter.is-visible {
+  opacity: 1;
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .hero-letter {
     transition: none;

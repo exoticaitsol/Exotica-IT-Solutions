@@ -192,6 +192,7 @@ export default function HomeV1({ c, hideNav = false }) {
   useEffect(() => { const t = setTimeout(() => setReady(true), 200); return () => clearTimeout(t) }, [])
 
   const [typedCount, setTypedCount] = useState(0)
+  const [eyebrowTypedCount, setEyebrowTypedCount] = useState(0)
 
   const [pan, setPan] = useState(1)
   const [ci, setCi] = useState(0)
@@ -199,6 +200,10 @@ export default function HomeV1({ c, hideNav = false }) {
   const [status, setStatus] = useState('idle')
 
   const heroLines = c.hero_title ? c.hero_title.split('|') : []
+  const eyebrowText = c.hero_eyebrow || ''
+  const eyebrowCharacters = Array.from(eyebrowText)
+
+  const [heroStep, setHeroStep] = useState(0)
 
 
   const heroCharacters = heroLines.map((line) =>
@@ -211,18 +216,33 @@ export default function HomeV1({ c, hideNav = false }) {
   )
 
 
-useEffect(() => {
-  if (totalHeroLetters === 0) return
-  if (typedCount >= totalHeroLetters) return
+  useEffect(() => {
+    if (totalHeroLetters === 0) return
+    if (typedCount >= totalHeroLetters) return
 
-  const timer = setTimeout(() => {
-    setTypedCount((count) =>
-      Math.min(count + 1, totalHeroLetters)
-    )
-  }, 65)
+    const timer = setTimeout(() => {
+      setTypedCount((count) =>
+        Math.min(count + 1, totalHeroLetters)
+      )
+    }, 100)
 
-  return () => clearTimeout(timer)
-}, [typedCount, totalHeroLetters])
+    return () => clearTimeout(timer)
+  }, [typedCount, totalHeroLetters])
+
+
+
+  useEffect(() => {
+    if (eyebrowCharacters.length === 0) return
+    if (eyebrowTypedCount >= eyebrowCharacters.length) return
+
+    const timer = setTimeout(() => {
+      setEyebrowTypedCount((count) =>
+        Math.min(count + 1, eyebrowCharacters.length)
+      )
+    }, 5)
+
+    return () => clearTimeout(timer)
+  }, [eyebrowTypedCount, eyebrowCharacters.length])
 
 
 
@@ -269,54 +289,70 @@ useEffect(() => {
         <header className="hero">
           <div className="wrap hero-wrap">
             <div className="hero-content">
-              {c.hero_eyebrow && <span className="eye">{c.hero_eyebrow}</span>}
+              {/* {c.hero_eyebrow && <span className="eye">{c.hero_eyebrow}</span>} */}
 
-
-             
-<h1>
-  {(() => {
-    let charIndex = 0;
-
-    return heroLines.map((line, lineIndex) => (
-      <span
-        key={lineIndex}
-        className={"ln" + (ready ? " in" : "")}
-      >
-        {line.trim().split(/(\s+)/).map((token, tokenIndex) => {
-          const isSpace = /^\s+$/.test(token);
-
-          const renderLetters = (text) =>
-            Array.from(text).map((letter, letterIndex) => {
-              const currentIndex = charIndex++;
-              const isVisible = currentIndex < typedCount;
-
-              return (
-                <span
-                  key={letterIndex}
-                  className={
-                    "hero-letter" + (isVisible ? " is-visible" : "")
-                  }
-                >
-                  {letter}
+              {c.hero_eyebrow && (
+                <span className="eye hero-eyebrow-typewriter">
+                  {eyebrowCharacters.map((letter, index) => (
+                    <span
+                      key={index}
+                      className={
+                        "hero-eyebrow-letter" +
+                        (index < eyebrowTypedCount ? " is-visible" : "")
+                      }
+                    >
+                      {letter === " " ? "\u00A0" : letter}
+                    </span>
+                  ))}
                 </span>
-              );
-            });
+              )}
 
-          return (
-            <span
-              key={tokenIndex}
-              className="hero-word"
-            >
-              {isSpace
-                ? "\u00A0".repeat(token.length)
-                : renderLetters(token)}
-            </span>
-          );
-        })}
-      </span>
-    ));
-  })()}
-</h1>
+
+
+              <h1>
+                {(() => {
+                  let charIndex = 0;
+
+                  return heroLines.map((line, lineIndex) => (
+                    <span
+                      key={lineIndex}
+                      className={"ln" + (ready ? " in" : "")}
+                    >
+                      {line.trim().split(/(\s+)/).map((token, tokenIndex) => {
+                        const isSpace = /^\s+$/.test(token);
+
+                        const renderLetters = (text) =>
+                          Array.from(text).map((letter, letterIndex) => {
+                            const currentIndex = charIndex++;
+                            const isVisible = currentIndex < typedCount;
+
+                            return (
+                              <span
+                                key={letterIndex}
+                                className={
+                                  "hero-letter" + (isVisible ? " is-visible" : "")
+                                }
+                              >
+                                {letter}
+                              </span>
+                            );
+                          });
+
+                        return (
+                          <span
+                            key={tokenIndex}
+                            className="hero-word"
+                          >
+                            {isSpace
+                              ? "\u00A0".repeat(token.length)
+                              : renderLetters(token)}
+                          </span>
+                        );
+                      })}
+                    </span>
+                  ));
+                })()}
+              </h1>
 
 
               {c.hero_subtitle && <p>{c.hero_subtitle}</p>}
