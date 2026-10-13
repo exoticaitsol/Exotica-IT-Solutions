@@ -453,6 +453,7 @@ background:var(--lime,#b8f233);color:#0d110a;transition:transform .2s,opacity .2
 .hero-wrap {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .hero-wrap .hero-vedio {
