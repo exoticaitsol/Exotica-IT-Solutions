@@ -35,6 +35,7 @@ export const DEFAULTS = {
     { logo_name: 'Robynn AI' },
     { logo_name: '◉ Chordia' },
   ],
+  logos_items: [],
 
   // stats
   stats_heading: 'From Concept to Reality',

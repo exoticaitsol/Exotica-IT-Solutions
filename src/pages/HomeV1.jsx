@@ -61,14 +61,19 @@ function Num({ value }) {
 }
 
 function Marquee({ items }) {
-  if (!items.length) return null
+  if (!items?.length) return null
   const row = [...items, ...items, ...items, ...items]
   return (
     <div className="logos">
+      <h2 className="rv_loggs">We Are Trusted By</h2>
       <div>
-        {row.map((l, i) =>
-          l.logo_file ? <img key={i} src={l.logo_file} alt={l.logo_name || ''} /> : <span key={i}>{l.logo_name}</span>
-        )}
+        {row.map((l, i) => {
+          const image = l.logo_file || l.logo_item_image
+          const name = l.logo_name || l.logo_item_name || ''
+          const url = l.logo_url || l.logo_item_url
+          const logo = image ? <img src={image} alt={name} /> : <span>{name}</span>
+          return url ? <a key={i} href={url}>{logo}</a> : <span key={i}>{logo}</span>
+        })}
       </div>
     </div>
   )
@@ -263,7 +268,7 @@ export default function HomeV1({ c, hideNav = false }) {
       setTypedCount((count) =>
         Math.min(count + 1, totalHeroLetters)
       );
-    }, 10);
+    }, 15);
 
     return () => clearTimeout(timer);
   }, [heroStep, typedCount, totalHeroLetters]);
@@ -278,6 +283,48 @@ export default function HomeV1({ c, hideNav = false }) {
 
     return () => clearTimeout(timer);
   }, [heroStep]);
+
+
+
+  useEffect(() => {
+    const sections = document.querySelectorAll(
+      "header.hero, section, .stats, footer"
+    );
+
+    let frameId;
+
+    const updateParallax = () => {
+      cancelAnimationFrame(frameId);
+
+      frameId = requestAnimationFrame(() => {
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          const offset = (window.innerHeight / 2 - rect.top) * 0.15;
+
+          section.style.setProperty(
+            "--parallax-y",
+            `${Math.max(-60, Math.min(60, offset))}px`
+          );
+        });
+      });
+    };
+
+    window.addEventListener("scroll", updateParallax, {
+      passive: true,
+    });
+
+    updateParallax();
+
+    return () => {
+      window.removeEventListener("scroll", updateParallax);
+      cancelAnimationFrame(frameId);
+
+      sections.forEach((section) => {
+        section.style.removeProperty("--parallax-y");
+      });
+    };
+  }, []);
+
 
 
 
@@ -429,6 +476,7 @@ export default function HomeV1({ c, hideNav = false }) {
       )}
 
       <Marquee items={c.trusted_logos} />
+     
 
       {c.stats.length > 0 && (
         <div className="stats">
@@ -471,8 +519,6 @@ export default function HomeV1({ c, hideNav = false }) {
       )}
 
 
-
-
       <section className="overservices">
         <div className="container">
           <div className="leaks-heading">
@@ -487,7 +533,7 @@ export default function HomeV1({ c, hideNav = false }) {
               />
             </h2>
           </div>
-
+ 
           <div className="lgrid">
             {c.leaks.map((l, i) => {
               const isOpen = activeLeak === i;
@@ -538,7 +584,29 @@ export default function HomeV1({ c, hideNav = false }) {
             })}
           </div>
 
+          <div className="custom-cta-box">
+            <p className="custom-cta-text">
+              {c.custom_cta_text || "Need something we haven't listed? We build custom software,"}
+              <br className="desktop-break" />
+              <span>
+                {c.custom_cta_highlight ||
+                  "and we can embed a dedicated engineering team in yours."}
+              </span>
+            </p>
+
+            <a
+              href={c.custom_cta_button_url || "#talk"}
+              className="custom-cta-button"
+            >
+              {c.custom_cta_button_label || "Talk to us"}
+              <span>→</span>
+            </a>
+          </div>
+
         </div>
+
+<Marquee items={c.logos_items} />
+
       </section>
 
 

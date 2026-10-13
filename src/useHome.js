@@ -17,7 +17,7 @@ const STRINGS = [
   'footer_text','footer_copyright',
 ]
 const ARRAYS = [
-  'nav','trusted_logos','stats','ai_cards','leaks','industries','cases','why_cards','faqs','posts','footer_badges','footer_columns',
+  'nav','trusted_logos','logos_items','stats','ai_cards','leaks','industries','cases','why_cards','faqs','posts','footer_badges','footer_columns',
 ]
 
 // Only API data is used. Missing values become '' or [] so the page never crashes.

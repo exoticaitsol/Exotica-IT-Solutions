@@ -102,6 +102,60 @@ function Footer() {
                     </div>
                 )}
 
+{/* Trust and Certifications */}
+{footer.badges?.length > 0 && (
+  <div className="footer-trust">
+    <div className="footer-trust-intro">
+      {footer.trust_icon && (
+        <img
+          className="footer-trust-icon"
+          src={footer.trust_icon}
+          alt="Trust"
+        />
+      )}
+
+      <p>
+        {(footer.trust_lines || [])
+          .map((line, index) => (
+            <span key={index}>
+              {line}
+              {index < footer.trust_lines.length - 1 && <br />}
+            </span>
+          ))}
+      </p>
+    </div>
+
+    <div className="footer-trust-cards">
+      {footer.badges.map((badge, index) => (
+        <a
+          key={badge.alt || index}
+          className="footer-trust-card"
+          href={badge.url || undefined}
+          target={badge.url ? "_blank" : undefined}
+          rel={badge.url ? "noopener noreferrer" : undefined}
+        >
+          <img src={badge.image} alt={badge.alt || ""} />
+
+          {badge.rating > 0 && (
+            <div
+              className="trust-stars"
+              style={{ color: badge.rating_color || "#fff" }}
+            >
+              {"★".repeat(badge.rating)}
+            </div>
+          )}
+
+          {badge.rating_text && (
+            <strong>{badge.rating_text}</strong>
+          )}
+
+          {badge.caption && <p>{badge.caption}</p>}
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
                 {/* Copyright */}
                 <div className="footer-bottom mt-10 border-t border-white/15 pt-6">
                     <p className="text-sm text-gray-400">
