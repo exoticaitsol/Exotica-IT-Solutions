@@ -377,6 +377,91 @@ background:var(--lime,#b8f233);color:#0d110a;transition:transform .2s,opacity .2
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Eyebrow typewriter */
+.hero-eyebrow-typewriter .hero-eyebrow-letter {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.hero-eyebrow-typewriter .hero-eyebrow-letter.is-visible {
+  opacity: 1;
+}
+
+/* Heading visibility */
+.hero-heading-hidden {
+  visibility: hidden;
+}
+
+.hero-heading-visible {
+  visibility: visible;
+}
+/* Paragraph appears after heading */
+.hero-subtitle-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-subtitle-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease;
+}
+
+/* Buttons appear after paragraph */
+.hero-cta {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hero-cta.hero-cta-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.4s ease;
+}
+
+/* Keep complete words together */
+.hero h1 .hero-word {
+  white-space: nowrap;
+}
+
+.hero h1 .hero-letter {
+  display: inline-block;
+  white-space: pre;
+}
+
+.hero h1 .ln.in .hero-letter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+
+
+
+
 @media (prefers-reduced-motion: reduce) {
   .hero-letter {
     transition: none;

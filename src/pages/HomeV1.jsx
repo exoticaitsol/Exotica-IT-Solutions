@@ -120,7 +120,8 @@ function IndPanel({ p, i, active, onEnter }) {
 
 
 /* ---------- page-wide effects: reveal, cursor, 3D tilt ---------- */
-const REVEAL = 'section h2,.ecard,.lc,.band,.tile,details,.audit,.sc,.panel,.tabs,.ind,.lede,.stats,.wrap,.blog-section,.hero,.cta,.ctg,.mos,.cs-wrap,.cs-panel,.cs-tabs,.cs-body,.cs-img,.cs-stats,.cs-btn,.why .tile,form,footer'
+
+const REVEAL = 'section h2,.ecard,.lc,.band,.tile,details,.audit,.sc,.panel,.tabs,.ind,.lede,.stats,.wrap,.blog-section,.hero,.ctg,.mos,.cs-wrap,.cs-panel,.cs-tabs,.cs-body,.cs-img,.cs-stats,.cs-btn,.why .tile,form,footer'
 
 function usePageEffects(content) {
   useEffect(() => {
@@ -199,7 +200,10 @@ export default function HomeV1({ c, hideNav = false }) {
   const [form, setForm] = useState({ name: '', email: '', launch: '', message: '', website: '' })
   const [status, setStatus] = useState('idle')
 
+
   const heroLines = c.hero_title ? c.hero_title.split('|') : []
+
+
   const eyebrowText = c.hero_eyebrow || ''
   const eyebrowCharacters = Array.from(eyebrowText)
 
@@ -216,33 +220,65 @@ export default function HomeV1({ c, hideNav = false }) {
   )
 
 
+
+  /* 1. AI eyebrow: type letter by letter */
   useEffect(() => {
-    if (totalHeroLetters === 0) return
-    if (typedCount >= totalHeroLetters) return
+    if (heroStep !== 0) return;
 
-    const timer = setTimeout(() => {
-      setTypedCount((count) =>
-        Math.min(count + 1, totalHeroLetters)
-      )
-    }, 100)
+    if (eyebrowCharacters.length === 0) {
+      setHeroStep(1);
+      return;
+    }
 
-    return () => clearTimeout(timer)
-  }, [typedCount, totalHeroLetters])
+    if (eyebrowTypedCount >= eyebrowCharacters.length) {
+      const timer = setTimeout(() => {
+        setHeroStep(1);
+      }, 200);
 
-
-
-  useEffect(() => {
-    if (eyebrowCharacters.length === 0) return
-    if (eyebrowTypedCount >= eyebrowCharacters.length) return
+      return () => clearTimeout(timer);
+    }
 
     const timer = setTimeout(() => {
       setEyebrowTypedCount((count) =>
         Math.min(count + 1, eyebrowCharacters.length)
-      )
-    }, 5)
+      );
+    }, 2);
 
-    return () => clearTimeout(timer)
-  }, [eyebrowTypedCount, eyebrowCharacters.length])
+    return () => clearTimeout(timer);
+  }, [heroStep, eyebrowTypedCount, eyebrowCharacters.length]);
+
+  /* 2. Main heading: start after eyebrow */
+  useEffect(() => {
+    if (heroStep !== 1) return;
+
+    if (totalHeroLetters === 0 || typedCount >= totalHeroLetters) {
+      const timer = setTimeout(() => {
+        setHeroStep(2);
+      }, 200);
+
+      return () => clearTimeout(timer);
+    }
+
+    const timer = setTimeout(() => {
+      setTypedCount((count) =>
+        Math.min(count + 1, totalHeroLetters)
+      );
+    }, 10);
+
+    return () => clearTimeout(timer);
+  }, [heroStep, typedCount, totalHeroLetters]);
+
+  /* 3. Show paragraph first, then buttons */
+  useEffect(() => {
+    if (heroStep !== 2) return;
+
+    const timer = setTimeout(() => {
+      setHeroStep(3);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [heroStep]);
+
 
 
 
@@ -286,11 +322,10 @@ export default function HomeV1({ c, hideNav = false }) {
       )}
 
       {(c.hero_title || c.hero_subtitle || c.hero_eyebrow) && (
-        <header className="hero">
+        <section className="hero">
           <div className="wrap hero-wrap">
-            <div className="hero-content">
-              {/* {c.hero_eyebrow && <span className="eye">{c.hero_eyebrow}</span>} */}
 
+            <div className="hero-content">
               {c.hero_eyebrow && (
                 <span className="eye hero-eyebrow-typewriter">
                   {eyebrowCharacters.map((letter, index) => (
@@ -307,9 +342,7 @@ export default function HomeV1({ c, hideNav = false }) {
                 </span>
               )}
 
-
-
-              <h1>
+              <h1 className={heroStep >= 1 ? "hero-heading-visible" : "hero-heading-hidden"}>
                 {(() => {
                   let charIndex = 0;
 
@@ -321,31 +354,28 @@ export default function HomeV1({ c, hideNav = false }) {
                       {line.trim().split(/(\s+)/).map((token, tokenIndex) => {
                         const isSpace = /^\s+$/.test(token);
 
-                        const renderLetters = (text) =>
-                          Array.from(text).map((letter, letterIndex) => {
-                            const currentIndex = charIndex++;
-                            const isVisible = currentIndex < typedCount;
-
-                            return (
-                              <span
-                                key={letterIndex}
-                                className={
-                                  "hero-letter" + (isVisible ? " is-visible" : "")
-                                }
-                              >
-                                {letter}
-                              </span>
-                            );
-                          });
-
                         return (
-                          <span
-                            key={tokenIndex}
-                            className="hero-word"
-                          >
-                            {isSpace
-                              ? "\u00A0".repeat(token.length)
-                              : renderLetters(token)}
+                          <span key={tokenIndex} className="hero-word">
+                            {isSpace ? (
+                              "\u00A0".repeat(token.length)
+                            ) : (
+                              Array.from(token).map((letter, letterIndex) => {
+                                const currentIndex = charIndex++;
+                                const isVisible = currentIndex < typedCount;
+
+                                return (
+                                  <span
+                                    key={letterIndex}
+                                    className={
+                                      "hero-letter" +
+                                      (isVisible ? " is-visible" : "")
+                                    }
+                                  >
+                                    {letter}
+                                  </span>
+                                );
+                              })
+                            )}
                           </span>
                         );
                       })}
@@ -355,12 +385,38 @@ export default function HomeV1({ c, hideNav = false }) {
               </h1>
 
 
-              {c.hero_subtitle && <p>{c.hero_subtitle}</p>}
-              <div className="cta">
-                {c.hero_cta_label && <a className="pill" href={c.hero_cta_url}>{c.hero_cta_label}</a>}
-                {c.hero_secondary_label && <a className="ghost" href={c.hero_secondary_url}>{c.hero_secondary_label}</a>}
+              {c.hero_subtitle && (
+                <p
+                  className={
+                    heroStep >= 2
+                      ? "hero-subtitle hero-subtitle-visible"
+                      : "hero-subtitle hero-subtitle-hidden"
+                  }
+                >
+                  {c.hero_subtitle}
+                </p>
+              )}
+
+              <div
+                className={`cta hero-cta ${heroStep >= 3 ? "hero-cta-visible" : ""
+                  }`}
+              >
+                {c.hero_cta_label && (
+                  <a className="pill" href={c.hero_cta_url}>
+                    {c.hero_cta_label}
+                  </a>
+                )}
+
+                {c.hero_secondary_label && (
+                  <a className="ghost" href={c.hero_secondary_url}>
+                    {c.hero_secondary_label}
+                  </a>
+                )}
               </div>
+
+
             </div>
+
             <div className="hero-vedio">
               {c.hero_video ? (
                 <video src={c.hero_video} poster={c.hero_poster || undefined} autoPlay muted loop playsInline />
@@ -369,7 +425,7 @@ export default function HomeV1({ c, hideNav = false }) {
               )}
             </div>
           </div>
-        </header>
+        </section>
       )}
 
       <Marquee items={c.trusted_logos} />
