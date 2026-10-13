@@ -1481,7 +1481,8 @@ footer {
     object-fit: contain;
 }
 .hero {
-    padding: 40px 0 40px !important;
+    padding: 50px 0 70px !important;
+    min-height: auto !important;
 }
 .eye {
     font-size: 12px;
