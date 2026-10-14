@@ -330,14 +330,14 @@ export default function HomeV1({ c, hideNav = false }) {
   // No More Rotator Phrases
 
   const phrases = [
-    "leads slipping through the cracks.",
-    "manual tasks slowing your team down.",
-    "sales opportunities going unnoticed.",
-    "repetitive work consuming valuable hours.",
-    "data scattered across disconnected systems.",
-    "follow-ups getting missed every day.",
-    "enquiries waiting on a person.",
-    "business decisions made without clear data."
+  "the same job typed into three systems.",
+  "details lost between sales and delivery.",
+  "contracts stuck in email threads.",
+  "expired insurance found too late.",
+  "invoices nobody can match to a payment.",
+  "client calls and texts nobody logged.",
+  "enquiries waiting on a person.",
+  "finding out about problems after they've cost you."
   ];
 
   const [phraseIndex, setPhraseIndex] = useState(0);
