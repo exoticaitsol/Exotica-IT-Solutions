@@ -346,14 +346,14 @@ section#talk h2,
   background-size: cover;
   background-position: center;
   filter: grayscale(1) contrast(1.05);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 40%)
+  /* -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 40%) */
 }
 
 .cs-body {
   position: relative;
   z-index: 1;
-  max-width: 65%;
+  max-width: 75%;
   padding: 40px
 }
 
