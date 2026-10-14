@@ -833,7 +833,7 @@ display: grid;
   align-items: center;
   gap: 52px;
   width: max-content;
-  animation: trustLogoScroll 28s linear infinite;
+  animation: trustLogoScroll 15s linear infinite;
   will-change: transform;
 }
 
