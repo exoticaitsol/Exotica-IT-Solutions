@@ -1065,6 +1065,13 @@ footer {
 .logos img {
     height: 60px;
     width: auto;
+    transition: filter .25s, opacity .25s;
+    filter: grayscale();
+    opacity: .8;
+}
+.logos img:hover {
+    filter: grayscale(0);
+    opacity: 1;
 }
 
 .lc {
