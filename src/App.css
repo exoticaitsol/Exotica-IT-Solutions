@@ -1081,6 +1081,14 @@ p.rotator-text {
     line-height: 36px;
     margin: 15px 0 20px;
   }
+  .stats .wrap div {
+    text-align: center;
+}
+
+.stats .wrap div b {
+    font-size: 28px;
+}
+
 }
 
 
