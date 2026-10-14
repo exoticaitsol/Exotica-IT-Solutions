@@ -327,6 +327,53 @@ export default function HomeV1({ c, hideNav = false }) {
 
 
 
+  // No More Rotator Phrases
+
+  const phrases = [
+  "leads slipping through the cracks.",
+  "manual tasks slowing your team down.",
+  "sales opportunities going unnoticed.",
+  "repetitive work consuming valuable hours.",
+  "data scattered across disconnected systems.",
+  "follow-ups getting missed every day.",
+  "enquiries waiting on a person.",
+  "business decisions made without clear data."
+  ];
+
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentPhrase = phrases[phraseIndex];
+    let delay = deleting ? 25 : 45;
+
+    if (!deleting && charIndex === currentPhrase.length) {
+      delay = 1400;
+    }
+
+    if (deleting && charIndex === 0) {
+      delay = 300;
+    }
+
+    const timer = setTimeout(() => {
+      if (!deleting && charIndex < currentPhrase.length) {
+        setCharIndex((count) => count + 1);
+      } else if (!deleting && charIndex === currentPhrase.length) {
+        setDeleting(true);
+      } else if (deleting && charIndex > 0) {
+        setCharIndex((count) => count - 1);
+      } else {
+        setDeleting(false);
+        setPhraseIndex((index) => (index + 1) % phrases.length);
+      }
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [phraseIndex, charIndex, deleting]);
+
+
+  // No More Rotator Phrases
 
 
 
@@ -374,80 +421,35 @@ export default function HomeV1({ c, hideNav = false }) {
 
             <div className="hero-content">
               {c.hero_eyebrow && (
-                <span className="eye hero-eyebrow-typewriter">
-                  {eyebrowCharacters.map((letter, index) => (
-                    <span
-                      key={index}
-                      className={
-                        "hero-eyebrow-letter" +
-                        (index < eyebrowTypedCount ? " is-visible" : "")
-                      }
-                    >
-                      {letter === " " ? "\u00A0" : letter}
-                    </span>
-                  ))}
+                <span className="hero-eyebrow">
+                  {c.hero_eyebrow}
                 </span>
               )}
 
-              <h1 className={heroStep >= 1 ? "hero-heading-visible" : "hero-heading-hidden"}>
-                {(() => {
-                  let charIndex = 0;
-
-                  return heroLines.map((line, lineIndex) => (
-                    <span
-                      key={lineIndex}
-                      className={"ln" + (ready ? " in" : "")}
-                    >
-                      {line.trim().split(/(\s+)/).map((token, tokenIndex) => {
-                        const isSpace = /^\s+$/.test(token);
-
-                        return (
-                          <span key={tokenIndex} className="hero-word">
-                            {isSpace ? (
-                              "\u00A0".repeat(token.length)
-                            ) : (
-                              Array.from(token).map((letter, letterIndex) => {
-                                const currentIndex = charIndex++;
-                                const isVisible = currentIndex < typedCount;
-
-                                return (
-                                  <span
-                                    key={letterIndex}
-                                    className={
-                                      "hero-letter" +
-                                      (isVisible ? " is-visible" : "")
-                                    }
-                                  >
-                                    {letter}
-                                  </span>
-                                );
-                              })
-                            )}
-                          </span>
-                        );
-                      })}
-                    </span>
-                  ));
-                })()}
+              <h1 className="hero-heading-visible">
+                {heroLines.map((line, lineIndex) => (
+                  <span key={lineIndex} className="ln in">
+                    {line.trim()}
+                  </span>
+                ))}
               </h1>
+
+              <p className="rotator-text">
+                No more{" "}
+                <span id="typed-phrase">
+                  {phrases[phraseIndex].slice(0, charIndex)}
+                </span>
+                <span className="typing-cursor">|</span>
+              </p>
 
 
               {c.hero_subtitle && (
-                <p
-                  className={
-                    heroStep >= 2
-                      ? "hero-subtitle hero-subtitle-visible"
-                      : "hero-subtitle hero-subtitle-hidden"
-                  }
-                >
+                <p className="hero-subtitle hero-subtitle-visible">
                   {c.hero_subtitle}
                 </p>
               )}
 
-              <div
-                className={`cta hero-cta ${heroStep >= 3 ? "hero-cta-visible" : ""
-                  }`}
-              >
+              <div className="cta hero-cta hero-cta-visible">
                 {c.hero_cta_label && (
                   <a className="pill" href={c.hero_cta_url}>
                     {c.hero_cta_label}
@@ -460,6 +462,7 @@ export default function HomeV1({ c, hideNav = false }) {
                   </a>
                 )}
               </div>
+
 
 
             </div>
@@ -476,7 +479,7 @@ export default function HomeV1({ c, hideNav = false }) {
       )}
 
       <Marquee items={c.trusted_logos} />
-     
+
 
       {c.stats.length > 0 && (
         <div className="stats">
@@ -533,7 +536,7 @@ export default function HomeV1({ c, hideNav = false }) {
               />
             </h2>
           </div>
- 
+
           <div className="lgrid">
             {c.leaks.map((l, i) => {
               const isOpen = activeLeak === i;
@@ -605,7 +608,7 @@ export default function HomeV1({ c, hideNav = false }) {
 
         </div>
 
-<Marquee items={c.logos_items} />
+        <Marquee items={c.logos_items} />
 
       </section>
 

@@ -58,7 +58,7 @@ function Footer() {
                     </div>
 
                     {/* Footer Link Columns */}
-                   <div className="footer-columns grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+                    <div className="footer-columns grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
                         {footer.columns?.map((column) => (
                             <div key={column.title} className="footer-column">
                                 <h4 className="mb-4 font-bold">
@@ -102,59 +102,59 @@ function Footer() {
                     </div>
                 )}
 
-{/* Trust and Certifications */}
-{footer.badges?.length > 0 && (
-  <div className="footer-trust">
-    <div className="footer-trust-intro">
-      {footer.trust_icon && (
-        <img
-          className="footer-trust-icon"
-          src={footer.trust_icon}
-          alt="Trust"
-        />
-      )}
+                {/* Trust and Certifications */}
+                {footer.badges?.length > 0 && (
+                    <div className="footer-trust">
+                        <div className="footer-trust-intro">
+                            {footer.trust_icon && (
+                                <img
+                                    className="footer-trust-icon"
+                                    src={footer.trust_icon}
+                                    alt="Trust"
+                                />
+                            )}
 
-      <p>
-        {(footer.trust_lines || [])
-          .map((line, index) => (
-            <span key={index}>
-              {line}
-              {index < footer.trust_lines.length - 1 && <br />}
-            </span>
-          ))}
-      </p>
-    </div>
+                            <p>
+                                {(footer.trust_lines || [])
+                                    .map((line, index) => (
+                                        <span key={index}>
+                                            {line}
+                                            {index < footer.trust_lines.length - 1 && <br />}
+                                        </span>
+                                    ))}
+                            </p>
+                        </div>
 
-    <div className="footer-trust-cards">
-      {footer.badges.map((badge, index) => (
-        <a
-          key={badge.alt || index}
-          className="footer-trust-card"
-          href={badge.url || undefined}
-          target={badge.url ? "_blank" : undefined}
-          rel={badge.url ? "noopener noreferrer" : undefined}
-        >
-          <img src={badge.image} alt={badge.alt || ""} />
+                        <div className="footer-trust-cards">
+                            {footer.badges.map((badge, index) => (
+                                <a
+                                    key={badge.alt || index}
+                                    className="footer-trust-card"
+                                    href={badge.url || undefined}
+                                    target={badge.url ? "_blank" : undefined}
+                                    rel={badge.url ? "noopener noreferrer" : undefined}
+                                >
+                                    <img src={badge.image} alt={badge.alt || ""} />
 
-          {badge.rating > 0 && (
-            <div
-              className="trust-stars"
-              style={{ color: badge.rating_color || "#fff" }}
-            >
-              {"★".repeat(badge.rating)}
-            </div>
-          )}
+                                    {badge.rating > 0 && (
+                                        <div
+                                            className="trust-stars"
+                                            style={{ color: badge.rating_color || "#fff" }}
+                                        >
+                                            {"★".repeat(badge.rating)}
+                                        </div>
+                                    )}
 
-          {badge.rating_text && (
-            <strong>{badge.rating_text}</strong>
-          )}
+                                    {badge.rating_text && (
+                                        <strong>{badge.rating_text}</strong>
+                                    )}
 
-          {badge.caption && <p>{badge.caption}</p>}
-        </a>
-      ))}
-    </div>
-  </div>
-)}
+                                    {badge.caption && <p>{badge.caption}</p>}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                )}
 
                 {/* Copyright */}
                 <div className="footer-bottom mt-10 border-t border-white/15 pt-6">
