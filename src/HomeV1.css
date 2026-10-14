@@ -250,7 +250,8 @@ nav .links a {
     color: #b9c2ad;
     font-weight: 600;
     font-size: 18px;
-    white-space: nowrap
+    white-space: nowrap;
+    align-items: center;
 }
 
 @keyframes mq {

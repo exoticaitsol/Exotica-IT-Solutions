@@ -749,11 +749,167 @@ section#talk h2,
 
 .overservices .logos {
   padding: 80px 0;
+  /* display: flex;
+  align-items: center; */
 }
 
-.overservices .logos h2.rv_loggs {
+.logos h2.rv_loggs {
   display: none;
 }
+.overservices .logos h2.rv_loggs {
+  display: block;
+    /* flex: 0 0 30%;
+    text-align: left;
+    margin-bottom: 0; */
+}
+
+
+.trust-strip {
+display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    align-items: center;
+    gap: 36px;
+    width: 100%;
+    padding: 60px 0px;
+    background: #f1f3e9;
+    border-top: 1px solid #dce0d2;
+    border-bottom: 1px solid #dce0d2;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.trust-heading {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+    padding-right: 24px;
+    width: 260px;
+    max-width: 260px;
+}
+
+.trust-kicker {
+  display: block;
+  margin-bottom: 9px;
+  color: #647344;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.trust-heading h2 {
+  margin: 0;
+  color: #151713;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.trust-heading h2 span {
+  color: #7e8b65;
+}
+
+.trust-logos-window {
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
+}
+
+.trust-logos-track {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+  width: max-content;
+  animation: trustLogoScroll 28s linear infinite;
+  will-change: transform;
+}
+
+.trust-logo {
+display: flex;
+    flex: 0 0 130px;
+    width: 160px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+.trust-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 130px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.trust-logo img:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.trust-logos-window:hover .trust-logos-track {
+  animation-play-state: paused;
+}
+
+@keyframes trustLogoScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 700px) {
+  .trust-strip {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px 0px;
+  }
+
+  .trust-heading {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .trust-heading h2 {
+    font-size: 21px;
+  }
+
+  .trust-logos-track {
+    gap: 18px;
+    animation-duration: 24s;
+  }
+
+  .trust-logo {
+    flex-basis: 105px;
+    width: 105px;
+    height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-logos-track {
+    animation: none;
+  }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   .hero-letter {

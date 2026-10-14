@@ -330,14 +330,14 @@ export default function HomeV1({ c, hideNav = false }) {
   // No More Rotator Phrases
 
   const phrases = [
-  "leads slipping through the cracks.",
-  "manual tasks slowing your team down.",
-  "sales opportunities going unnoticed.",
-  "repetitive work consuming valuable hours.",
-  "data scattered across disconnected systems.",
-  "follow-ups getting missed every day.",
-  "enquiries waiting on a person.",
-  "business decisions made without clear data."
+    "leads slipping through the cracks.",
+    "manual tasks slowing your team down.",
+    "sales opportunities going unnoticed.",
+    "repetitive work consuming valuable hours.",
+    "data scattered across disconnected systems.",
+    "follow-ups getting missed every day.",
+    "enquiries waiting on a person.",
+    "business decisions made without clear data."
   ];
 
   const [phraseIndex, setPhraseIndex] = useState(0);
@@ -522,6 +522,7 @@ export default function HomeV1({ c, hideNav = false }) {
       )}
 
 
+
       <section className="overservices">
         <div className="container">
           <div className="leaks-heading">
@@ -556,7 +557,10 @@ export default function HomeV1({ c, hideNav = false }) {
 
                   <h3>{l.leak_title}</h3>
 
-                  <div className={`leak-description ${isOpen ? "expanded" : ""}`}>
+                  <div
+                    className={`leak-description ${isOpen ? "expanded" : ""
+                      }`}
+                  >
                     <p>{l.leak_text}</p>
                   </div>
 
@@ -575,7 +579,9 @@ export default function HomeV1({ c, hideNav = false }) {
                         type="button"
                         className="leak-toggle-icon"
                         onClick={toggleLeak}
-                        aria-label={isOpen ? "Close details" : "Open details"}
+                        aria-label={
+                          isOpen ? "Close details" : "Open details"
+                        }
                         aria-expanded={isOpen}
                       >
                         {isOpen ? "−" : "+"}
@@ -589,7 +595,8 @@ export default function HomeV1({ c, hideNav = false }) {
 
           <div className="custom-cta-box">
             <p className="custom-cta-text">
-              {c.custom_cta_text || "Need something we haven't listed? We build custom software,"}
+              {c.custom_cta_text ||
+                "Need something we haven't listed? We build custom software,"}
               <br className="desktop-break" />
               <span>
                 {c.custom_cta_highlight ||
@@ -606,165 +613,219 @@ export default function HomeV1({ c, hideNav = false }) {
             </a>
           </div>
 
+
+          <div className="trust-strip">
+            <div className="trust-heading">
+              <h2>We Are Trusted By</h2>
+            </div>
+
+            <div className="trust-logos-window">
+              <div className="trust-logos-track">
+                {[...(c.logos_items || []), ...(c.logos_items || [])].map(
+                  (logo, index) => {
+                    const image = logo.logo_file || logo.logo_item_image;
+                    const name = logo.logo_name || logo.logo_item_name || "Company logo";
+                    const url = logo.logo_url || logo.logo_item_url;
+                    const isDuplicate = index >= (c.logos_items || []).length;
+
+                    if (!image) return null;
+
+                    const content = (
+                      <img
+                        src={image}
+                        alt={isDuplicate ? "" : name}
+                        loading="lazy"
+                      />
+                    );
+
+                    return (
+                      <div
+                        className="trust-logo"
+                        key={`${name}-${index}`}
+                        aria-hidden={isDuplicate ? "true" : undefined}
+                      >
+                        {url && !isDuplicate ? (
+                          <a href={url} target="_blank" rel="noopener noreferrer">
+                            {content}
+                          </a>
+                        ) : (
+                          content
+                        )}
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            </div>
+          </div>
+
+
         </div>
-
-        <Marquee items={c.logos_items} />
-
       </section>
 
 
 
-      {c.industries.length > 0 && (
-        <section id="ind">
-          <div className="wrap">
-            {c.industries_eyebrow && <span className="eye">{c.industries_eyebrow}</span>}
-            <h2 data-reveal style={{ margin: '14px 0 50px' }}><Hl text={c.industries_title} hl={c.industries_highlight} /></h2>
-            <div className="ind">
-              {c.industries.map((p, i) => (
-                <IndPanel
-                  key={i}
-                  p={p}
-                  i={i}
-                  active={i === activePan}
-                  onEnter={() => setPan(i)}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {cs && (
-        <section id="work" style={{ background: 'var(--bg2)' }}>
-          <div className="wrap">
-            {c.cases_eyebrow && <span className="eye">{c.cases_eyebrow}</span>}
-            <h2 style={{ marginTop: 14 }}><Hl text={c.cases_title} hl={c.cases_highlight} /></h2>
-            <div className="cs-wrap">
-              <div className="cs-tabs">
-                {c.cases.map((k, i) => (
-                  <button key={i} type="button" className={'cs-tab' + (i === ci ? ' on' : '')} onClick={() => setCi(i)}>
-                    {k.case_tab}
-                  </button>
+      {
+        c.industries.length > 0 && (
+          <section id="ind">
+            <div className="wrap">
+              {c.industries_eyebrow && <span className="eye">{c.industries_eyebrow}</span>}
+              <h2 data-reveal style={{ margin: '14px 0 50px' }}><Hl text={c.industries_title} hl={c.industries_highlight} /></h2>
+              <div className="ind">
+                {c.industries.map((p, i) => (
+                  <IndPanel
+                    key={i}
+                    p={p}
+                    i={i}
+                    active={i === activePan}
+                    onEnter={() => setPan(i)}
+                  />
                 ))}
               </div>
+            </div>
+          </section>
+        )
+      }
 
-              <div className="cs-panel">
-                {cs.case_image && <div className="cs-img" style={{ backgroundImage: `url(${cs.case_image})` }} />}
-                <div className="cs-body">
-                  {cs.case_kicker && <span className="cs-kicker">{cs.case_kicker}</span>}
-                  <h3>{cs.case_heading}</h3>
-                  <p>{cs.case_text}</p>
-                  <div className="cs-stats">
-                    {statPairs(cs.case_stats).map(([v, l], i) => (
-                      <div className="cs-stat" key={i}>
-                        <strong>{v}</strong>
-                        <em>{l}</em>
-                      </div>
-                    ))}
+      {
+        cs && (
+          <section id="work" style={{ background: 'var(--bg2)' }}>
+            <div className="wrap">
+              {c.cases_eyebrow && <span className="eye">{c.cases_eyebrow}</span>}
+              <h2 style={{ marginTop: 14 }}><Hl text={c.cases_title} hl={c.cases_highlight} /></h2>
+              <div className="cs-wrap">
+                <div className="cs-tabs">
+                  {c.cases.map((k, i) => (
+                    <button key={i} type="button" className={'cs-tab' + (i === ci ? ' on' : '')} onClick={() => setCi(i)}>
+                      {k.case_tab}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="cs-panel">
+                  {cs.case_image && <div className="cs-img" style={{ backgroundImage: `url(${cs.case_image})` }} />}
+                  <div className="cs-body">
+                    {cs.case_kicker && <span className="cs-kicker">{cs.case_kicker}</span>}
+                    <h3>{cs.case_heading}</h3>
+                    <p>{cs.case_text}</p>
+                    <div className="cs-stats">
+                      {statPairs(cs.case_stats).map(([v, l], i) => (
+                        <div className="cs-stat" key={i}>
+                          <strong>{v}</strong>
+                          <em>{l}</em>
+                        </div>
+                      ))}
+                    </div>
+                    {cs.case_button_label && (
+                      <a className="cs-btn" href={cs.case_button_url || '#talk'}>{cs.case_button_label} →</a>
+                    )}
                   </div>
-                  {cs.case_button_label && (
-                    <a className="cs-btn" href={cs.case_button_url || '#talk'}>{cs.case_button_label} →</a>
-                  )}
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
 
-      {(c.why_title || c.why_cards.length > 0) && (
-        <section id="why" className="why">
-          <div className="wrap">
-            {c.why_eyebrow && <span className="eye">{c.why_eyebrow}</span>}
-            <h2 data-reveal style={{ margin: '14px 0' }}>{c.why_title}</h2>
-            {c.why_text && <p data-reveal className="lede">{c.why_text}</p>}
-            <div className="mos">
-              {c.why_cards.map((w, i) => (
-                <div className={'tile t' + ((i % 4) + 1)} key={i}>
-                  <span className="big">{pad(i + 1)}</span>
-                  <h4>{w.why_card_title}</h4>
-                  <p>{w.why_card_text}</p>
-                </div>
-              ))}
+      {
+        (c.why_title || c.why_cards.length > 0) && (
+          <section id="why" className="why">
+            <div className="wrap">
+              {c.why_eyebrow && <span className="eye">{c.why_eyebrow}</span>}
+              <h2 data-reveal style={{ margin: '14px 0' }}>{c.why_title}</h2>
+              {c.why_text && <p data-reveal className="lede">{c.why_text}</p>}
+              <div className="mos">
+                {c.why_cards.map((w, i) => (
+                  <div className={'tile t' + ((i % 4) + 1)} key={i}>
+                    <span className="big">{pad(i + 1)}</span>
+                    <h4>{w.why_card_title}</h4>
+                    <p>{w.why_card_text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
 
-      {(c.faq_title || c.faqs.length > 0) && (
-        <section id="faq">
-          <div className="wrap faq">
-            <div>
-              {c.faq_eyebrow && <span className="eye">{c.faq_eyebrow}</span>}
-              <h2 data-reveal style={{ marginTop: 14 }}>{c.faq_title}</h2>
-              {c.faq_card_title && (
-                <div className="audit">
-                  <h4>{c.faq_card_title}</h4>
-                  <p>{c.faq_card_text}</p>
-                  {c.faq_card_label && <a href={c.faq_card_url}>{c.faq_card_label}</a>}
-                </div>
-              )}
+      {
+        (c.faq_title || c.faqs.length > 0) && (
+          <section id="faq">
+            <div className="wrap faq">
+              <div>
+                {c.faq_eyebrow && <span className="eye">{c.faq_eyebrow}</span>}
+                <h2 data-reveal style={{ marginTop: 14 }}>{c.faq_title}</h2>
+                {c.faq_card_title && (
+                  <div className="audit">
+                    <h4>{c.faq_card_title}</h4>
+                    <p>{c.faq_card_text}</p>
+                    {c.faq_card_label && <a href={c.faq_card_url}>{c.faq_card_label}</a>}
+                  </div>
+                )}
+              </div>
+              <div>
+                {c.faqs.map((f, i) => (
+                  <details key={i} open={i === 0}>
+                    <summary>{f.faq_question}</summary>
+                    <p>{f.faq_answer}</p>
+                  </details>
+                ))}
+              </div>
             </div>
-            <div>
-              {c.faqs.map((f, i) => (
-                <details key={i} open={i === 0}>
-                  <summary>{f.faq_question}</summary>
-                  <p>{f.faq_answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
 
       <BlogSection />
 
 
-      {(c.contact_title || c.contact_big) && (
-        <section id="talk" className="ct">
-          <div className="wrap ctg">
-            <div>
-              {c.contact_eyebrow && <span className="eye">{c.contact_eyebrow}</span>}
-              <h2 data-reveal style={{ marginTop: 14 }}>{c.contact_title}</h2>
-              <div className="lets" aria-label={c.contact_big}>
-                {[...c.contact_big].map((ch, i) => (ch === ' ' ? ' ' : <span key={i}>{ch}</span>))}
+      {
+        (c.contact_title || c.contact_big) && (
+          <section id="talk" className="ct">
+            <div className="wrap ctg">
+              <div>
+                {c.contact_eyebrow && <span className="eye">{c.contact_eyebrow}</span>}
+                <h2 data-reveal style={{ marginTop: 14 }}>{c.contact_title}</h2>
+                <div className="lets" aria-label={c.contact_big}>
+                  {[...c.contact_big].map((ch, i) => (ch === ' ' ? ' ' : <span key={i}>{ch}</span>))}
+                </div>
+                {c.contact_text && <p data-reveal className="lede">{c.contact_text}</p>}
               </div>
-              {c.contact_text && <p data-reveal className="lede">{c.contact_text}</p>}
-            </div>
-            <div>
-              {status === 'ok' ? (
-                <h3 style={{ fontSize: 30, color: 'var(--lime)' }}>Thank you — we'll be in touch within 24 hours.</h3>
-              ) : (
-                <form onSubmit={submit}>
-                  <label>Full name
-                    <input name="name" required placeholder="Your full name" value={form.name} onChange={onChange} />
-                  </label>
-                  <label>Business email
-                    <input name="email" type="email" required placeholder="you@company.com" value={form.email} onChange={onChange} />
-                  </label>
-                  {lines(c.contact_launch_options).length > 0 && (
-                    <label>When do you want to launch a solution?
-                      <select name="launch" value={form.launch} onChange={onChange}>
-                        <option value="">Select a timeline</option>
-                        {lines(c.contact_launch_options).map((o) => <option key={o}>{o}</option>)}
-                      </select>
+              <div>
+                {status === 'ok' ? (
+                  <h3 style={{ fontSize: 30, color: 'var(--lime)' }}>Thank you — we'll be in touch within 24 hours.</h3>
+                ) : (
+                  <form onSubmit={submit}>
+                    <label>Full name
+                      <input name="name" required placeholder="Your full name" value={form.name} onChange={onChange} />
                     </label>
-                  )}
-                  <label>About project
-                    <textarea name="message" rows="2" placeholder="Tell us about the opportunity" value={form.message} onChange={onChange} />
-                  </label>
-                  {/* honeypot: hidden from real users */}
-                  <input name="website" value={form.website} onChange={onChange} tabIndex={-1} autoComplete="off" style={{ display: 'none' }} />
-                  <button className="pill" disabled={status === 'sending'}>
-                    {status === 'sending' ? 'Sending...' : c.contact_submit_label || 'Submit'}
-                  </button>
-                  {status === 'error' && <p className="err">Could not send. Please try again or email us directly.</p>}
-                </form>
-              )}
+                    <label>Business email
+                      <input name="email" type="email" required placeholder="you@company.com" value={form.email} onChange={onChange} />
+                    </label>
+                    {lines(c.contact_launch_options).length > 0 && (
+                      <label>When do you want to launch a solution?
+                        <select name="launch" value={form.launch} onChange={onChange}>
+                          <option value="">Select a timeline</option>
+                          {lines(c.contact_launch_options).map((o) => <option key={o}>{o}</option>)}
+                        </select>
+                      </label>
+                    )}
+                    <label>About project
+                      <textarea name="message" rows="2" placeholder="Tell us about the opportunity" value={form.message} onChange={onChange} />
+                    </label>
+                    {/* honeypot: hidden from real users */}
+                    <input name="website" value={form.website} onChange={onChange} tabIndex={-1} autoComplete="off" style={{ display: 'none' }} />
+                    <button className="pill" disabled={status === 'sending'}>
+                      {status === 'sending' ? 'Sending...' : c.contact_submit_label || 'Submit'}
+                    </button>
+                    {status === 'error' && <p className="err">Could not send. Please try again or email us directly.</p>}
+                  </form>
+                )}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
     </>
   )
   useEffect(() => {
