@@ -244,9 +244,9 @@ nav .links a {
 
 .logos div {
     display: flex;
-    gap: 100px;
+    gap: 70px;
     width: max-content;
-    animation: mq 28s linear infinite;
+    animation: mq 25s linear infinite;
     color: #b9c2ad;
     font-weight: 600;
     font-size: 18px;
@@ -1063,7 +1063,7 @@ footer {
 }
 
 .logos img {
-    height: 70px;
+    height: 60px;
     width: auto;
 }
 
