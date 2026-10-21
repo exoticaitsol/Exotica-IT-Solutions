@@ -1069,6 +1069,7 @@ footer {
     filter: grayscale();
     opacity: .8;
 }
+
 .logos img:hover {
     filter: grayscale(0);
     opacity: 1;
@@ -1388,6 +1389,22 @@ footer {
     }
 }
 
+.links a:last-child {
+    background: #70aa26;
+    padding: 13px 25px;
+    border-radius: 80px;
+}
+
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px;
+}
+
 @media(max-width:1360px) {
     .hero h1 {
         font-size: 42px;
@@ -1492,6 +1509,55 @@ footer {
 }
 
 @media(max-width:767px) {
+    nav .container {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-left: auto;
+    }
+
+    nav .links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 20px 20px 30px;
+        background: linear-gradient(#060805, #000000c9);
+        border: 0;
+        border-radius: 0;
+        z-index: 999;
+        height: 100vh;
+    }
+    nav {
+        background: linear-gradient(#060805, #000000);
+    }
+
+    nav .links.menu-open {
+        display: flex;
+    }
+
+    nav .links a {
+        display: block !important; 
+        padding: 13px 0;
+        font-size: 15px;
+        text-align: center;
+        border-bottom: 1px solid #373737;
+    }
+    .links a:last-child {
+    padding: 13px 20px;
+    margin-top: 15px;
+    border-bottom: unset;
+}
+
     .hero h1 {
         font-size: 32px;
         line-height: 42px
@@ -1581,29 +1647,38 @@ footer {
     .logos img {
         height: 50px;
     }
-    .container, .wrap {
-    padding-inline: 15px !important;
-}
-.lgrid {
-    gap: 12px;
-    margin-top: 25px;
-}
-.mos {
-    margin-top: 25px;
-}
-.faq {
-    gap: 30px;
-}
-.head, section#ind h2.rv.in {
-    margin-bottom: 25px !important;
-}
-.cs-body p {
-    font-size: 16px !important;
-    line-height: 1.65;
-}
-#faq .faq details.rv.in {
-    margin-bottom: 15px;
-}
+
+    .container,
+    .wrap {
+        padding-inline: 15px !important;
+    }
+
+    .lgrid {
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .mos {
+        margin-top: 25px;
+    }
+
+    .faq {
+        gap: 30px;
+    }
+
+    .head,
+    section#ind h2.rv.in {
+        margin-bottom: 25px !important;
+    }
+
+    .cs-body p {
+        font-size: 16px !important;
+        line-height: 1.65;
+    }
+
+    #faq .faq details.rv.in {
+        margin-bottom: 15px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -1611,5 +1686,3 @@ footer {
         grid-template-columns: 1fr;
     }
 }
-
-

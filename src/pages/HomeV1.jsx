@@ -463,8 +463,6 @@ export default function HomeV1({ c, hideNav = false }) {
                 )}
               </div>
 
-
-
             </div>
 
             <div className="hero-vedio">
