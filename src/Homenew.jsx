@@ -36,7 +36,7 @@ function Typing({ prefix, phrases }) {
     <div className="hn-rot">
       <p aria-hidden="true" style={{ margin: 0, display: 'grid' }}>
         <span style={{ gridArea: '1/1' }}>
-          <span>{prefix}</span><span className="hn-ty">{typed}</span><span className={'hn-caret' + (on ? ' on' : '')} />
+          <span>{prefix}{' '}</span><span className="hn-ty">{typed}</span><span className={'hn-caret' + (on ? ' on' : '')} />
         </span>
         {phrases.map((p, k) => <span key={k} className="hn-sz" style={{ gridArea: '1/1' }}>{prefix + p}</span>)}
       </p>
@@ -61,13 +61,13 @@ function HeroMedia({ webm, mp4, poster }) {
       if (started) return
       started = true
       v.src = src
-      v.addEventListener('canplay', () => { v.play().catch(() => {}) }, { once: true })
+      v.addEventListener('canplay', () => { v.play().catch(() => { }) }, { once: true })
       v.load()
     }
     const t = setTimeout(start, 400)
     const io = new IntersectionObserver((e) => {
       if (!started) return
-      e[0].isIntersecting ? v.play().catch(() => {}) : v.pause()
+      e[0].isIntersecting ? v.play().catch(() => { }) : v.pause()
     })
     io.observe(v)
     return () => { clearTimeout(t); io.disconnect() }
@@ -192,7 +192,7 @@ function Page({ d }) {
       {/* HERO */}
       <section className="hn-hero">
         <div className={'hn-wrap hn-hero-grid' + (hasMedia ? '' : ' hn-single')}>
-          <div>
+          <div className='hero-content'>
             {d.hero_eyebrow && <p className="hn-eyebrow">{d.hero_eyebrow}</p>}
             <h1>{d.hero_title}</h1>
             {d.hero_sub && <p className="hn-sub">{d.hero_sub}</p>}
@@ -203,7 +203,9 @@ function Page({ d }) {
               {d.hero_secondary_label && <a className="hn-btn hn-btn-s" href={d.hero_secondary_url}>{d.hero_secondary_label}</a>}
             </div>
           </div>
-          <HeroMedia webm={d.hero_video_webm} mp4={d.hero_video_mp4} poster={d.hero_poster} />
+          <div className='hero-video'>
+            <HeroMedia webm={d.hero_video_webm} mp4={d.hero_video_mp4} poster={d.hero_poster} />
+          </div>
         </div>
       </section>
 
