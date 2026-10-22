@@ -42,7 +42,7 @@ function App() {
 
         {/* New Homepage with Header and Footer */}
         <Route
-          path="/home-new"
+          path="/home"
           element={
             <>
               <Header />
