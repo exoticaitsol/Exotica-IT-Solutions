@@ -14,16 +14,29 @@ const STRINGS = [
   'faq_eyebrow','faq_title','faq_card_title','faq_card_text','faq_card_label','faq_card_url',
   'blog_eyebrow','blog_title','blog_all_label','blog_all_url',
   'contact_eyebrow','contact_title','contact_big','contact_text','contact_launch_options','contact_submit_label',
+  'connected_eyebrow','connected_title','connected_text','connected_note',
+  'how_eyebrow','how_title','how_quote',
+  'roi_title','roi_eyebrow','roi_text','roi_hours_default','roi_cost_default','roi_currency',
+  'roi_low_pct','roi_high_pct','roi_likely_pct','roi_likely_text','roi_button_url',
+  'roi_hours_label','roi_cost_label','roi_result_label','roi_button_label','roi_note',
+  'audit_title','audit_text','audit_primary_label','audit_primary_url',
+  'audit_secondary_label','audit_secondary_url','audit_seal_image','audit_seal_alt','audit_seal_text',
   'footer_text','footer_copyright',
 ]
 const ARRAYS = [
   'nav','trusted_logos','logos_items','stats','ai_cards','leaks','industries','cases','why_cards','faqs','posts','footer_badges','footer_columns',
+  'connected_roles','connected_points','how_steps',
 ]
 
 // Only API data is used. Missing values become '' or [] so the page never crashes.
 function normalize(api) {
   const out = {}
-  STRINGS.forEach((k) => (out[k] = typeof api?.[k] === 'string' ? api[k] : ''))
+  STRINGS.forEach((k) => {
+    const value = api?.[k]
+    out[k] = typeof value === 'string' || (typeof value === 'number' && Number.isFinite(value))
+      ? String(value)
+      : ''
+  })
   ARRAYS.forEach((k) => (out[k] = Array.isArray(api?.[k]) ? api[k] : []))
   return out
 }

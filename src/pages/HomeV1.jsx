@@ -3,6 +3,8 @@ import '../HomeV1.css'
 import { API } from '../useHome'
 import HeroCanvas from '../HeroCanvas'
 import BlogSection from "./BlogSection";
+import { ConnectedSection, HowSection, RoiSection, AuditSection, SiteFooter } from './Extrasections'
+
 
 
 
@@ -126,7 +128,7 @@ function IndPanel({ p, i, active, onEnter }) {
 
 /* ---------- page-wide effects: reveal, cursor, 3D tilt ---------- */
 
-const REVEAL = 'section h2,.ecard,.lc,.band,.tile,details,.audit,.sc,.panel,.tabs,.ind,.lede,.stats,.wrap,.blog-section,.hero,.ctg,.mos,.cs-wrap,.cs-panel,.cs-tabs,.cs-body,.cs-img,.cs-stats,.cs-btn,.why .tile,form,footer'
+const REVEAL = 'section h2,.ecard,.lc,.band,.tile,details,.audit,.sc,.panel,.tabs,.ind,.lede,.stats,.wrap,.blog-section,.hero,.ctg,.mos,.cs-wrap,.cs-panel,.cs-tabs,.cs-body,.cs-img,.cs-stats,.cs-btn,.why .tile,form,footer,.ex-reveal'   // NEW: ,.ex-reveal
 
 function usePageEffects(content) {
   useEffect(() => {
@@ -188,7 +190,7 @@ function usePageEffects(content) {
 //   return <Page c={data} />
 // }
 
-export default function HomeV1({ c, hideNav = false }) {
+export default function HomeV1({ c, hideNav = false, hideFooter = false }) {   // NEW: hideFooter
 
   const [activeLeak, setActiveLeak] = useState(null);
 
@@ -661,7 +663,9 @@ export default function HomeV1({ c, hideNav = false }) {
         </div>
       </section>
 
-
+      {/* ===== NEW: One connected system + How we work ===== */}
+      <ConnectedSection c={c} />
+      <HowSection c={c} />
 
       {
         c.industries.length > 0 && (
@@ -725,6 +729,9 @@ export default function HomeV1({ c, hideNav = false }) {
         )
       }
 
+      {/* ===== NEW: ROI calculator ===== */}
+      <RoiSection c={c} />
+
       {
         (c.why_title || c.why_cards.length > 0) && (
           <section id="why" className="why">
@@ -776,6 +783,8 @@ export default function HomeV1({ c, hideNav = false }) {
 
       <BlogSection />
 
+      {/* ===== NEW: Final CTA (Audit) ===== */}
+      <AuditSection c={c} />
 
       {
         (c.contact_title || c.contact_big) && (
@@ -824,6 +833,9 @@ export default function HomeV1({ c, hideNav = false }) {
           </section>
         )
       }
+
+      {/* ===== NEW: Footer ===== */}
+      {!hideFooter && <SiteFooter c={c} />}
     </>
   )
   useEffect(() => {
