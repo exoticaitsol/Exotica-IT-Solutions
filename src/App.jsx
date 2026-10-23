@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import HomeV1 from "./pages/HomeV1";
 import Homenew from "./Homenew";
+import Construction from "./pages/Construction";
 import { DEFAULTS } from "./default";
 import useHome from "./useHome";
 import "./App.css";
@@ -47,6 +48,18 @@ function App() {
             <>
               <Header />
               <Homenew />
+              <Footer />
+            </>
+          }
+        />
+
+        {/* Construction Page */}
+        <Route
+          path="/construction"
+          element={
+            <>
+              <Header />
+              <Construction />
               <Footer />
             </>
           }
