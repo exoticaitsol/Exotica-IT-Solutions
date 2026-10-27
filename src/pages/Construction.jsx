@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import "../App.css";
 
 const API = "https://app.exoticaitsolutions.com/wp-json/exotica/v1/construction";
 const LEAD_ENDPOINT = ""; // TODO: webhook (GHL, n8n...). Empty = demo mode, nothing is sent.

@@ -759,11 +759,7 @@ section#talk h2,
 
 .overservices .logos h2.rv_loggs {
   display: block;
-  /* flex: 0 0 30%;
-    text-align: left;
-    margin-bottom: 0; */
 }
-
 
 .trust-strip {
   display: grid;
@@ -771,14 +767,13 @@ section#talk h2,
   align-items: center;
   gap: 36px;
   width: 100%;
-  padding: 60px 0px;
+  padding: 60px 0;
   background: #f1f3e9;
   border-top: 1px solid #dce0d2;
   border-bottom: 1px solid #dce0d2;
   box-sizing: border-box;
   overflow: hidden;
 }
-
 .trust-heading {
   position: relative;
   z-index: 2;
@@ -813,16 +808,20 @@ section#talk h2,
   min-width: 0;
   width: 100%;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right,
-      transparent,
-      #000 4%,
-      #000 96%,
-      transparent);
-  mask-image: linear-gradient(to right,
-      transparent,
-      #000 4%,
-      #000 96%,
-      transparent);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
 }
 
 .trust-logos-track {
@@ -2513,4 +2512,4 @@ button:focus-visible) {
   #top :is(.flow) {
     grid-template-columns: 1fr
   }
-}  
+}
