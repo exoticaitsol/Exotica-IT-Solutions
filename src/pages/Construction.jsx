@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import "../App.css"; // same CSS as the original HTML (Inter font link: add to index.html)
 
 const API = "https://app.exoticaitsolutions.com/wp-json/exotica/v1/construction";
 const LEAD_ENDPOINT = ""; // TODO: webhook (GHL, n8n...). Empty = demo mode, nothing is sent.
