@@ -5,6 +5,9 @@ import Footer from "./Footer";
 import HomeV1 from "./pages/HomeV1";
 import Homenew from "./Homenew";
 import Construction from "./pages/Construction";
+import About from "./pages/About";
+import ContactPage from "./pages/Contact/ContactPage";
+import ServicePage from "./pages/Service/ServicePage";
 import { DEFAULTS } from "./default";
 import useHome from "./useHome";
 import "./App.css";
@@ -60,6 +63,39 @@ function App() {
             <>
               <Header />
               <Construction />
+              <Footer />
+            </>
+          }
+        />
+
+        <Route
+          path="/about"
+          element={
+            <>
+              <Header />
+              <About />
+              <Footer />
+            </>
+          }
+        />
+
+        <Route
+          path="/contact"
+          element={
+            <>
+              <Header />
+              <ContactPage />
+              <Footer />
+            </>
+          }
+        />
+
+        <Route
+          path="/service"
+          element={
+            <>
+              <Header />
+              <ServicePage />
               <Footer />
             </>
           }

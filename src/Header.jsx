@@ -44,9 +44,24 @@ useEffect(() => {
           {menuOpen ? "✕" : "☰"}
         </button>
         <div className={`links ${menuOpen ? "menu-open" : ""}`}>
-          {(Array.isArray(header.menu) ? header.menu : []).map((item) => (
-            <a key={item.id} href={item.url}>{item.title}</a>
-          ))}
+          {(Array.isArray(header.menu) ? header.menu : []).map((item) => {
+            const isAboutLink = item.title?.trim().toLowerCase() === "about us";
+            const isContactLink = item.title?.trim().toLowerCase().includes("contact");
+            const isServicesLink = item.title?.trim().toLowerCase() === "services";
+            const href = isServicesLink && (!item.url || item.url === "#")
+              ? "/service"
+              : isAboutLink && (!item.url || item.url === "#")
+              ? "/about"
+              : isContactLink && (!item.url || item.url === "#")
+                ? "/contact"
+                : item.url;
+
+            return (
+              <a key={item.id} href={href}>
+                {item.title}
+              </a>
+            );
+          })}
         </div>
       </div>
     </nav>
