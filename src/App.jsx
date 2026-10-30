@@ -6,6 +6,7 @@ import HomeV1 from "./pages/HomeV1";
 import Homenew from "./Homenew";
 import Construction from "./pages/Construction";
 import About from "./pages/About";
+import ContactPage from "./pages/Contact/ContactPage";
 import ContactUs from "./pages/Contact/ContactUs";
 import ServicePage from "./pages/Service/ServicePage";
 import { DEFAULTS } from "./default";
@@ -84,7 +85,17 @@ function App() {
           element={
             <>
               <Header />
-              {/* <ContactPage /> */}
+              <ContactPage />
+              <Footer />
+            </>
+          }
+        />
+
+        <Route
+          path="/contact-new"
+          element={
+            <>
+              <Header />
               <ContactUs />
               <Footer />
             </>
