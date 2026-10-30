@@ -114,6 +114,123 @@ p.ct-eyebrow {
 label.ct-btn-green {
     margin: unset;
 }
+
+.ct-card {
+    transition: background 0.35s ease,
+                color 0.35s ease,
+                transform 0.35s ease !important;
+}
+
+.ct-card:not(.is-featured) .ct-card-title {
+    color: #ffffff !important;
+}
+.ct-card:not(.is-featured):hover {
+    background: #78ad28 !important;
+    transform: translateY(-4px);
+}
+
+.ct-card:not(.is-featured):hover .ct-card-title,
+.ct-card:not(.is-featured):hover .ct-card-cta {
+    color: #000000 !important;
+}
+.ct-card:not(.is-featured):hover .ct-eyebrow {
+    color: #ffffff !important;
+}
+.ct-card .ct-circle {
+    transition: transform 0.35s ease,
+                border-color 0.35s ease,
+                color 0.35s ease !important;
+}
+.ct-card:not(.is-featured):hover .ct-circle {
+    transform: rotate(-45deg);
+    border-color: #000 !important;
+    color: #000000 !important;
+}
+
+.ct-card .ct-circle svg {
+    transition: transform 0.35s ease;
+}
+
+
+
+
+
+/* Default first card active */
+.ct-card.is-featured {
+    background: #78ad28 !important;
+    color: #050805 !important;
+}
+
+/* When hovering second or third card */
+.ct-cards:has(.ct-card:not(.is-featured):hover) .ct-card.is-featured {
+    background: #0e130e !important;
+    color: #ffffff !important;
+}
+
+/* First card text becomes white */
+.ct-cards:has(.ct-card:not(.is-featured):hover) .ct-card.is-featured .ct-eyebrow,
+.ct-cards:has(.ct-card:not(.is-featured):hover) .ct-card.is-featured .ct-card-title,
+.ct-cards:has(.ct-card:not(.is-featured):hover) .ct-card.is-featured .ct-card-cta {
+    color: #ffffff !important;
+}
+
+/* Hovered card becomes green */
+.ct-card:not(.is-featured):hover {
+    background: #78ad28 !important;
+    color: #050805 !important;
+}
+
+.ct-card:not(.is-featured):hover .ct-card-title,
+.ct-card:not(.is-featured):hover .ct-card-cta {
+    color: #050805 !important;
+}
+button.ct-card {
+    border-color: var(--ct-green);
+}
+.ct-cards:has(.ct-card:not(.is-featured):hover) .ct-card.is-featured .ct-card-cta, .ct-cards:has(.ct-card:not(.is-featured):hover) .ct-card.is-featured .ct-eyebrow {
+    color: #a6e228 !important;
+}
+
+
+.ct-card.is-featured .ct-circle {
+    transform: rotate(0deg);
+    transition: transform 0.35s ease;
+}
+
+
+.ct-card.is-featured:hover .ct-circle {
+    transform: rotate(
+2deg) !important;
+}
+
+
+.ct-cards:has(.ct-card:not(.is-featured):hover)
+.ct-card.is-featured .ct-circle {
+    transform: rotate(
+47deg) !important;
+}
+
+
+@media(max-width:767px) {
+    .ct-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .ct-card:hover .ct-card-title {
+        transform: none;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .ct-card,
+    .ct-card * {
+        transition: none !important;
+    }
+    .ct-card:hover {
+        transform: none;
+    }
+}
+
 @media (max-width: 900px) {
   .ct-cards { grid-template-columns: 1fr; max-width: 520px; }
   .ct-card { min-height: 170px; }

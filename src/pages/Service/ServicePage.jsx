@@ -36,7 +36,7 @@ function Title({ before, highlight, block }) {
       {highlight && (
         <>
           {block ? <br /> : ' '}
-          <span className="sv-hl">{highlight}</span>
+          <span className="sv-hl growth-new">{highlight}</span>
         </>
       )}
     </>

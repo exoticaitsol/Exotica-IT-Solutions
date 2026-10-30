@@ -155,7 +155,123 @@ h2.ab-h2 {
 .newly-sec-ad {
     padding-bottom: unset;
 }
+/* ===== PREMIUM BORDER ANIMATION ===== */
 
+.ab-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    opacity: 1 !important;
+    transform: translateY(0);
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        box-shadow .45s ease;
+}
+
+/* Animated border */
+.ab-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    background: linear-gradient(
+        135deg,
+        #8bc53f,
+        transparent 45%,
+        #8bc53f
+    ) border-box;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .4s ease;
+    pointer-events: none;
+}
+
+.ab-card:hover::after {
+    opacity: 1;
+}
+
+/* Spotlight background */
+.ab-card::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(139,197,63,.17),
+        transparent 70%
+    );
+    top: -110px;
+    left: -110px;
+    opacity: 0;
+    transform: scale(.5);
+    transition: all .6s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ab-card:hover::before {
+    opacity: 1;
+    transform: scale(1.5);
+    top: -60px;
+    left: 50%;
+}
+
+/* Card lift */
+.ab-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 16px 35px rgba(0,0,0,.13);
+}
+
+/* Icon pop */
+.ab-card__icon {
+    display: inline-flex;
+    transition: transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+
+.ab-card:hover .ab-card__icon {
+    transform: scale(1.18) rotate(-10deg);
+}
+
+/* Heading reveal */
+.ab-card h3 {
+    transition: transform .4s ease;
+}
+
+.ab-card:hover h3 {
+    transform: translateY(-3px);
+}
+
+/* Paragraph */
+.ab-card p {
+    transition: opacity .4s ease;
+}
+
+.ab-card:hover p {
+    opacity: .85;
+}
+
+/* Mobile */
+@media(max-width:767px) {
+    .ab-card:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* Accessibility */
+@media(prefers-reduced-motion:reduce) {
+    .ab-card,
+    .ab-card * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
 @media (max-width: 1100px) {
   .ab-cards { grid-template-columns: repeat(3, 1fr); }
 }
