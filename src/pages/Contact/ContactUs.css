@@ -1,0 +1,481 @@
+.exctu {
+  --exctu-green: #70AA26;
+  --exctu-navy: #09110E;
+  --exctu-text: #1d1d1f;
+  color: var(--exctu-text);
+  line-height: 1.5;
+  box-sizing: border-box;
+  overflow-x: clip;
+}
+
+.exctu *,
+.exctu *::before,
+.exctu *::after {
+  box-sizing: border-box;
+}
+
+.exctu--full {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+
+.exctu .exctu-wrap {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.exctu .exctu-hero {
+  background: linear-gradient(100deg, #0A0E08 0%, #070C08E0 38%, #1C2316 70%);
+  padding: 72px 0 76px;
+  color: #fff;
+}
+
+.exctu .exctu-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.exctu .exctu-hero__title {
+  margin: 0 0 12px;
+  font-size: 50px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: #fff;
+}
+
+.exctu .exctu-hero__sub {
+  margin: 0 0 22px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.exctu .exctu-btn-green {
+  display: inline-block;
+  background: var(--exctu-green);
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+  padding: 13px 22px;
+  border-radius: 34px;
+  text-decoration: none;
+  transition: filter 0.2s;
+}
+
+.exctu .exctu-btn-green:hover {
+  filter: brightness(1.1);
+  color: #fff;
+}
+
+.exctu .exctu-hero__media {
+  position: relative;
+  justify-self: end;
+  width: 100%;
+  max-width: 520px;
+}
+
+.exctu .exctu-hero__frame {
+  position: absolute;
+  left: -40px;
+  right: 14%;
+  top: 42px;
+  bottom: -30px;
+  border: 9px solid #fff;
+  z-index: 0;
+}
+
+.exctu .exctu-hero__img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  margin-left: auto;
+  max-width: 100%;
+}
+
+.exctu .exctu-hero__img--empty {
+  background: linear-gradient(135deg, #1e3a0f, #080c08);
+}
+
+.exctu .exctu-load-error {
+  margin: 0;
+  padding: 12px 24px;
+  background: #fff3cd;
+  color: #664d03;
+  text-align: center;
+}
+
+.exctu .exctu-main {
+    padding: 89px 0;
+    background: #F1F3EA;
+}
+
+.exctu .exctu-main__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+section.exctu-map {
+    padding: unset;
+}
+.exctu .exctu-card-form {
+  background: var(--exctu-green);
+  border-radius: 22px;
+  padding: 26px;
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.exctu .exctu-card-form__title {
+    margin: 0;
+    font-size: 50px;
+    line-height: 54px;
+    font-weight: 700;
+    color: #000;
+}
+
+.exctu .exctu-card-form__sub {
+  margin: 15px 0 32px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.exctu .exctu-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.exctu .exctu-field,
+.exctu .exctu-form__row .exctu-field {
+  margin-bottom: 20px;
+}
+
+.exctu .exctu-input {
+  display: block;
+  width: 100%;
+  height: 56px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 6px;
+  background: #fff;
+  color: #222;
+  font: 500 17px/1.2 Poppins, sans-serif;
+  box-shadow: none;
+  outline: 0;
+}
+
+.exctu .exctu-input::placeholder {
+  color: var(--exctu-green);
+  opacity: 1;
+}
+
+.exctu .exctu-textarea {
+  height: 132px;
+  padding: 16px 18px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.exctu .exctu-input:focus {
+  box-shadow: 0 0 0 3px rgba(19, 33, 63, 0.55);
+}
+
+.exctu .exctu-err {
+  display: none;
+  margin-top: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #b3261e;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.exctu .exctu-err.is-on {
+  display: inline-block;
+}
+
+.exctu .exctu-input.is-bad {
+  box-shadow: 0 0 0 3px #b3261e;
+}
+label.exctu-consent__label span {
+    text-transform: none;
+}
+.exctu .exctu-consent {
+  margin-top: 26px;
+}
+
+.exctu .exctu-consent__label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #fff;
+  cursor: pointer;
+}
+
+.exctu .exctu-consent__box {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  accent-color: var(--exctu-navy);
+}
+
+.exctu .exctu-consent__links {
+  margin: 14px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.exctu .exctu-consent__links a {
+  color: #fff;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.exctu .exctu-consent__sep {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background: #fff;
+}
+
+.exctu .g-recaptcha {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.exctu .exctu-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.exctu .exctu-status {
+  display: none;
+  margin: 0 0 14px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.exctu .exctu-status.is-ok {
+  display: block;
+  background: #fff;
+  color: #2c6a0f;
+}
+
+.exctu .exctu-status.is-fail {
+  display: block;
+  background: #b3261e;
+  color: #fff;
+}
+
+.exctu .exctu-submit {
+  display: block;
+  width: 100%;
+  height: 58px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--exctu-navy);
+  color: #fff;
+  font: 700 17px/1 Poppins, sans-serif;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+button.exctu-submit:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.exctu .exctu-submit:hover {
+  filter: brightness(1.25);
+}
+
+.exctu .exctu-submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.exctu .exctu-info {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+}
+
+.exctu .exctu-info__card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px 22px 24px;
+    box-shadow: 0 4px 22px 0 4px 22px rgb(112 170 38 / 40%);
+    border: 2px solid #70aa26;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.exctu .exctu-info__card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+}
+.exctu-submit {
+    transition: all 0.5s ease-in-out !important;
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.exctu-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+}
+
+.exctu .exctu-info__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  margin-bottom: 16px;
+}
+
+.exctu .exctu-info__icon svg,
+.exctu .exctu-flag-img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.exctu .exctu-info__icon svg:first-child {
+  width: 34px;
+  height: 34px;
+}
+
+.exctu .exctu-info__title {
+  margin: 0 0 6px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #70aa26;
+}
+
+.exctu .exctu-info__text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #09110E;
+}
+
+.exctu .exctu-info__text a,
+.exctu .exctu-info__phone a {
+  color: #333;
+  text-decoration: none;
+}
+
+.exctu .exctu-info__phone {
+  margin: 12px 0 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.exctu .exctu-info__phone strong {
+    display: block;
+    font-weight: 800;
+    color: #09110E;
+    margin-bottom: 2px;
+}
+.exctu .exctu-info__text a, .exctu .exctu-info__phone a {
+    color: #09110E;
+    text-decoration: none;
+    font-weight: 500;
+}
+.exctu .exctu-map {
+  line-height: 0;
+}
+
+.exctu .exctu-map__frame {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+@media (max-width: 991px) {
+  .exctu .exctu-hero {
+    padding: 48px 0 56px;
+  }
+
+  .exctu .exctu-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exctu .exctu-hero__media {
+    justify-self: start;
+    max-width: 480px;
+    margin: 0 0 0 40px;
+  }
+
+  .exctu .exctu-main__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .exctu .exctu-info {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .exctu .exctu-wrap {
+    padding: 0 16px;
+  }
+
+  .exctu .exctu-hero__title {
+    font-size: 32px;
+  }
+
+  .exctu .exctu-card-form {
+    padding: 20px 16px;
+  }
+
+  .exctu .exctu-card-form__title {
+    font-size: 26px;
+  }
+
+  .exctu .exctu-form__row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .exctu .exctu-hero__media {
+    margin-left: 30px;
+  }
+
+  .exctu .g-recaptcha {
+    transform: scale(0.88);
+    transform-origin: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exctu * {
+    transition: none !important;
+  }
+}
