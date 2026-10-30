@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 
-export const API = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+export const API = (
+  import.meta.env.VITE_API_URL ||
+  'https://app.exoticaitsolutions.com/wp-json/exotica/v1'
+).replace(/\/+$/, '')
 
 const STRINGS = [
   'logo_text','logo_tagline','logo_image','header_cta_label','header_cta_url',
@@ -49,7 +52,7 @@ export default function useHome() {
   useEffect(() => {
     if (!API) return
     const ctrl = new AbortController()
-    fetch(`${API}/home`, { signal: ctrl.signal })
+    fetch(`${API}/home`, { signal: ctrl.signal, cache: 'no-cache' })
       .then((r) => {
         if (!r.ok) throw new Error('API error ' + r.status)
         return r.json()

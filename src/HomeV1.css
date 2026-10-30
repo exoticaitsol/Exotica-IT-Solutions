@@ -910,7 +910,7 @@ details p {
 }
 
 .lets {
-    font-size: clamp(64px, 10vw, 140px);
+    font-size: clamp(64px, 10vw, 115px);
     font-weight: 800;
     letter-spacing: -.05em;
     line-height: .9;
@@ -1034,13 +1034,22 @@ footer {
 }
 
 /* ---- additions for React version ---- */
-.hero video {
+.hero .hero-wrap .hero-vedio {
+    position: relative;
+    width: 45%;
+    max-width: 45%;
+    flex: 0 0 45%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero .hero-wrap .hero-vedio video {
     position: absolute;
     inset: 0;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    /* opacity: .45 */
+    object-fit: cover;
 }
 
 .iso img {
@@ -1412,7 +1421,7 @@ footer {
     }
 
     .hero video {
-        object-fit: contain;
+        object-fit: cover;
     }
 
     .hero {

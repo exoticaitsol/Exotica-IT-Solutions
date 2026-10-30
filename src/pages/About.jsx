@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchAbout, sendAboutContact } from "../api/about";
+import { fetchAbout } from "../api/about";
+import ContactSection from "../components/ContactSection";
 import "./About.css";
 
 const ICONS = [
@@ -334,130 +335,6 @@ function Leadership({ data }) {
   );
 }
 
-function Contact({ data }) {
-  const emptyForm = {
-    name: "",
-    email: "",
-    timeline: "",
-    project: "",
-    website: "",
-  };
-  const [form, setForm] = useState(emptyForm);
-  const [status, setStatus] = useState("idle");
-  const [error, setError] = useState("");
-
-  const updateField = (field) => (event) => {
-    setForm((current) => ({ ...current, [field]: event.target.value }));
-  };
-
-  const submit = async (event) => {
-    event.preventDefault();
-    if (status === "sending") return;
-
-    if (!form.name.trim() || !/^\S+@\S+\.\S+$/.test(form.email)) {
-      setStatus("error");
-      setError("Please enter your name and a valid email.");
-      return;
-    }
-
-    setStatus("sending");
-    setError("");
-    try {
-      await sendAboutContact(form);
-      setStatus("success");
-      setForm(emptyForm);
-    } catch (submitError) {
-      setStatus("error");
-      setError(
-        submitError instanceof Error
-          ? submitError.message
-          : "Something went wrong. Please try again.",
-      );
-    }
-  };
-
-  return (
-    <section className="ab-section ab-dark ab-contact" id="contact">
-      <div className="ab-container ab-contact__grid">
-        <div>
-          <Eyebrow>{data.contact_eyebrow}</Eyebrow>
-          <h2 className="ab-contact__title">{data.contact_title}</h2>
-          <p className="ab-contact__big">{data.contact_big}</p>
-          <p className="ab-contact__text">{data.contact_text}</p>
-        </div>
-        <form className="ab-form" onSubmit={submit} noValidate>
-          <label className="ab-field">
-            <span>{data.f_name_label}</span>
-            <input
-              type="text"
-              placeholder={data.f_name_placeholder}
-              value={form.name}
-              onChange={updateField("name")}
-              required
-            />
-          </label>
-          <label className="ab-field">
-            <span>{data.f_email_label}</span>
-            <input
-              type="email"
-              placeholder={data.f_email_placeholder}
-              value={form.email}
-              onChange={updateField("email")}
-              required
-            />
-          </label>
-          <label className="ab-field">
-            <span>{data.f_timeline_label}</span>
-            <select
-              value={form.timeline}
-              onChange={updateField("timeline")}
-            >
-              <option value="">{data.f_timeline_placeholder}</option>
-              {(data.timeline_options || []).map((option, index) => (
-                <option key={index} value={option.option_label}>
-                  {option.option_label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="ab-field">
-            <span>{data.f_project_label}</span>
-            <textarea
-              rows="2"
-              placeholder={data.f_project_placeholder}
-              value={form.project}
-              onChange={updateField("project")}
-            />
-          </label>
-          <input
-            type="text"
-            name="website"
-            tabIndex="-1"
-            autoComplete="off"
-            className="ab-hp"
-            value={form.website}
-            onChange={updateField("website")}
-            aria-hidden="true"
-          />
-          <button type="submit" className="ab-btn" disabled={status === "sending"}>
-            {status === "sending" ? "Sending…" : data.contact_button || "Submit"}
-          </button>
-          {status === "success" && (
-            <p className="ab-msg ab-msg--ok" role="status">
-              {data.contact_success || "Thank you! We will contact you shortly."}
-            </p>
-          )}
-          {status === "error" && (
-            <p className="ab-msg ab-msg--err" role="alert">
-              {error}
-            </p>
-          )}
-        </form>
-      </div>
-    </section>
-  );
-}
-
 export default function About() {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
@@ -496,7 +373,7 @@ export default function About() {
       <Values data={data} />
       <Beliefs data={data} />
       <Leadership data={data} />
-      <Contact data={data} />
+      <ContactSection data={data} />
     </main>
   );
 }

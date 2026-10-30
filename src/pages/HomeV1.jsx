@@ -3,8 +3,11 @@ import '../HomeV1.css'
 import { API } from '../useHome'
 import HeroCanvas from '../HeroCanvas'
 import BlogSection from "./BlogSection";
+import ContactSection from "../components/ContactSection";
 import { ConnectedSection, HowSection, RoiSection, AuditSection, SiteFooter } from './Extrasections'
 
+const CONTACT_API =
+  API || "https://app.exoticaitsolutions.com/wp-json/exotica/v1";
 
 
 
@@ -88,6 +91,27 @@ const IND_BG = [
   'radial-gradient(circle at 70% 60%,#4d7d16,#0a1005 65%)',
 ]
 const bgImg = (url, fallback) => (url ? `center/cover url(${url})` : fallback)
+
+function HeroMedia({ src, poster }) {
+  const [failed, setFailed] = useState(false)
+
+  if (!src || failed) return <HeroCanvas />
+
+  return (
+    <video
+      src={src}
+      poster={poster || undefined}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-hidden="true"
+      onError={() => setFailed(true)}
+    />
+  )
+}
+
 function IndPanel({ p, i, active, onEnter }) {
   const vref = useRef(null)
 
@@ -204,10 +228,6 @@ export default function HomeV1({ c, hideNav = false, hideFooter = false }) {   /
 
   const [pan, setPan] = useState(1)
   const [ci, setCi] = useState(0)
-  const [form, setForm] = useState({ name: '', email: '', launch: '', message: '', website: '' })
-  const [status, setStatus] = useState('idle')
-
-
   const heroLines = c.hero_title ? c.hero_title.split('|') : []
 
 
@@ -381,24 +401,21 @@ export default function HomeV1({ c, hideNav = false, hideFooter = false }) {   /
 
   const activePan = pan < c.industries.length ? pan : 0
   const cs = c.cases.length ? c.cases[Math.min(ci, c.cases.length - 1)] : null
-  const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
-
-  async function submit(e) {
-    e.preventDefault()
-    setStatus('sending')
-    try {
-      const r = await fetch(`${API}/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (!r.ok) throw new Error()
-      setStatus('ok')
-    } catch {
-      setStatus('error')
+  async function submitContact({ name, email, timeline, project, website }) {
+    const response = await fetch(`${CONTACT_API}/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        launch: timeline,
+        message: project,
+        website,
+      }),
+    })
+    if (!response.ok) {
+      throw new Error('Could not send. Please try again or email us directly.')
     }
-
-
   }
 
   return (
@@ -467,12 +484,12 @@ export default function HomeV1({ c, hideNav = false, hideFooter = false }) {   /
 
             </div>
 
-            <div className="hero-vedio">
-              {c.hero_video ? (
-                <video src={c.hero_video} poster={c.hero_poster || undefined} autoPlay muted loop playsInline />
-              ) : (
-                <HeroCanvas />
-              )}
+            <div className="hero-vedio" aria-hidden="true">
+              <HeroMedia
+                key={c.hero_video}
+                src={c.hero_video}
+                poster={c.hero_poster}
+              />
             </div>
           </div>
         </section>
@@ -494,6 +511,22 @@ export default function HomeV1({ c, hideNav = false, hideFooter = false }) {   /
 
       {(c.ai_title || c.ai_cards.length > 0) && (
         <section id="eng">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <div className="wrap">
             <div className="head">
               <div>
@@ -788,49 +821,12 @@ export default function HomeV1({ c, hideNav = false, hideFooter = false }) {   /
 
       {
         (c.contact_title || c.contact_big) && (
-          <section id="talk" className="ct">
-            <div className="wrap ctg">
-              <div>
-                {c.contact_eyebrow && <span className="eye">{c.contact_eyebrow}</span>}
-                <h2 data-reveal style={{ marginTop: 14 }}>{c.contact_title}</h2>
-                <div className="lets" aria-label={c.contact_big}>
-                  {[...c.contact_big].map((ch, i) => (ch === ' ' ? ' ' : <span key={i}>{ch}</span>))}
-                </div>
-                {c.contact_text && <p data-reveal className="lede">{c.contact_text}</p>}
-              </div>
-              <div>
-                {status === 'ok' ? (
-                  <h3 style={{ fontSize: 30, color: 'var(--lime)' }}>Thank you — we'll be in touch within 24 hours.</h3>
-                ) : (
-                  <form onSubmit={submit}>
-                    <label>Full name
-                      <input name="name" required placeholder="Your full name" value={form.name} onChange={onChange} />
-                    </label>
-                    <label>Business email
-                      <input name="email" type="email" required placeholder="you@company.com" value={form.email} onChange={onChange} />
-                    </label>
-                    {lines(c.contact_launch_options).length > 0 && (
-                      <label>When do you want to launch a solution?
-                        <select name="launch" value={form.launch} onChange={onChange}>
-                          <option value="">Select a timeline</option>
-                          {lines(c.contact_launch_options).map((o) => <option key={o}>{o}</option>)}
-                        </select>
-                      </label>
-                    )}
-                    <label>About project
-                      <textarea name="message" rows="2" placeholder="Tell us about the opportunity" value={form.message} onChange={onChange} />
-                    </label>
-                    {/* honeypot: hidden from real users */}
-                    <input name="website" value={form.website} onChange={onChange} tabIndex={-1} autoComplete="off" style={{ display: 'none' }} />
-                    <button className="pill" disabled={status === 'sending'}>
-                      {status === 'sending' ? 'Sending...' : c.contact_submit_label || 'Submit'}
-                    </button>
-                    {status === 'error' && <p className="err">Could not send. Please try again or email us directly.</p>}
-                  </form>
-                )}
-              </div>
-            </div>
-          </section>
+          <ContactSection
+            data={c}
+            sectionId="talk"
+            variant="home"
+            onSubmitContact={submitContact}
+          />
         )
       }
 
