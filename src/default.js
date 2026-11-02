@@ -20,7 +20,8 @@ export const DEFAULTS = {
   hero_title: 'Your whole operation,|connected to itself.',
   hero_subtitle:
     'We find where your operation is leaking time and money, then build the AI and automation that closes the gap. One dashboard for the whole business, with each role seeing only what it needs. The return target is agreed before we write a line.',
-  hero_video: '',
+  hero_video:
+    'https://app.exoticaitsolutions.com/wp-content/uploads/2026/10/exotica-hero-fallback-min-min.mp4',
   hero_poster: '',
   hero_cta_label: 'Calculate your ROI →',
   hero_cta_url: '#talk',
