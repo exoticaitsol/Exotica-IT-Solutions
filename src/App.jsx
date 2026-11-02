@@ -80,12 +80,12 @@ function App() {
             </>
           }
         />
-<Route
-          path="/about"
+        <Route
+          path="/contact"
           element={
             <>
               <Header />
-              <About />
+              <ContactPage />
               <Footer />
             </>
           }
