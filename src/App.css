@@ -2560,10 +2560,26 @@ button:focus-visible) {
   #top :is(.flow) {
     grid-template-columns: 1fr 1fr
   }
+
 }
 
 @media(max-width:560px) {
   #top :is(.flow) {
     grid-template-columns: 1fr
   }
+  #top :is(.wrap h2) {
+    font-size: 26px;
+}
+#top :is(.roi) {
+    padding: clamp(12px, 4vw, 56px);
+}
+#top :is(.pagehero h1) {
+    font-size: clamp(28px, 4.6vw, 60px);
+}
+#top :is(section) {
+    padding: clamp(34px, 9vw, 120px) 0;
+}
+#top :is(.res) {
+    padding: 26px 12px;
+}
 }
