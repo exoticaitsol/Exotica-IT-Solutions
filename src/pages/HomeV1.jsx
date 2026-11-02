@@ -35,30 +35,79 @@ function Hl({ text = '', hl = '' }) {
 }
 
 // Animated counter: "50+" counts up to 50 and keeps the "+"
+// function Num({ value }) {
+//   const m = String(value).match(/^(\d+)(.*)$/)
+//   const ref = useRef(null)
+//   const [n, setN] = useState(0)
+//   useEffect(() => {
+//     if (!m) return
+//     const target = +m[1]
+//     let timer
+//     const io = new IntersectionObserver(([e]) => {
+//       if (!e.isIntersecting) return
+//       io.disconnect()
+//       let c = 0
+//       timer = setInterval(() => {
+//         c += Math.ceil(target / 40)
+//         if (c >= target) { c = target; clearInterval(timer) }
+//         setN(c)
+//       }, 30)
+//     })
+//     io.observe(ref.current)
+//     return () => { io.disconnect(); clearInterval(timer) }
+//   }, [value])
+//   if (!m) return <b>{value}</b>
+//   return <b ref={ref}><i>{n}</i>{m[2]}</b>
+// }
+
+
+// Animated counter: Counts up one number at a time
 function Num({ value }) {
-  const m = String(value).match(/^(\d+)(.*)$/)
-  const ref = useRef(null)
-  const [n, setN] = useState(0)
+  const m = String(value).match(/^(\d+)(.*)$/);
+  const ref = useRef(null);
+  const [n, setN] = useState(0);
+
   useEffect(() => {
-    if (!m) return
-    const target = +m[1]
-    let timer
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return
-      io.disconnect()
-      let c = 0
+    if (!m) return;
+
+    const target = Number(m[1]);
+    let timer;
+    let current = 0;
+
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+
+      io.disconnect();
+
       timer = setInterval(() => {
-        c += Math.ceil(target / 40)
-        if (c >= target) { c = target; clearInterval(timer) }
-        setN(c)
-      }, 30)
-    })
-    io.observe(ref.current)
-    return () => { io.disconnect(); clearInterval(timer) }
-  }, [value])
-  if (!m) return <b>{value}</b>
-  return <b ref={ref}><i>{n}</i>{m[2]}</b>
+        current += 1;
+        setN(current);
+
+        if (current >= target) {
+          clearInterval(timer);
+        }
+      }, 100);
+    });
+
+    if (ref.current) {
+      io.observe(ref.current);
+    }
+
+    return () => {
+      io.disconnect();
+      clearInterval(timer);
+    };
+  }, [value]);
+
+  if (!m) return <b>{value}</b>;
+
+  return (
+    <b ref={ref}>
+      <i>{n}</i>{m[2]}
+    </b>
+  );
 }
+
 
 function Marquee({ items }) {
   if (!items?.length) return null
@@ -118,7 +167,12 @@ function IndPanel({ p, i, active, onEnter }) {
         />
       )}
       <span className="n">{pad(i + 1)}</span>
-      <div><h4>{p.industry_name}</h4></div>
+      <div className="info_ind">
+        <h4>{p.industry_name}</h4>
+        <h5>{p.industry_subtitle}</h5>
+        <p>{p.industry_description}</p>
+      </div>
+
     </div>
   )
 }
@@ -499,6 +553,9 @@ export default function HomeV1({ c, hideNav = false }) {
                 <h2 data-reveal style={{ marginTop: 14 }}><Hl text={c.ai_title} hl={c.ai_highlight} /></h2>
               </div>
               {c.ai_text && <p data-reveal className="lede">{c.ai_text}</p>}
+
+
+            
             </div>
             <div className="eng">
               {c.ai_cards.map((k, i) => (
@@ -549,7 +606,7 @@ export default function HomeV1({ c, hideNav = false }) {
                   key={i}
                   className={`lc${isOpen ? " is-open" : ""}`}
                 >
-                  <div className="ic" />
+                  <div className="ic"><img src="https://app.exoticaitsolutions.com/wp-content/uploads/2026/11/icongrounppp.png" /></div>
 
                   <span className="nm">{pad(i + 1)}</span>
 

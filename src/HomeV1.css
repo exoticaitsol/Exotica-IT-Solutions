@@ -40,7 +40,7 @@ a {
 }
 
 section {
-    padding: 110px 0;
+    padding: 80px 0;
     position: relative
 }
 
@@ -132,7 +132,7 @@ nav {
     left: 0;
     right: 0;
     z-index: 50;
-    background: linear-gradient(#060805, #0000007a);
+    background: linear-gradient(#060805, #00000000);
     padding: 18px 0;
     /* max-width: 1420px;
     margin: 0 auto; */
@@ -199,7 +199,7 @@ nav .links a {
 
 /* hero */
 .hero {
-    min-height: 92vh;
+    /* min-height: 92vh; */
     padding: 180px 0;
     background: radial-gradient(700px 380px at 85% 8%, #5b3fa066, transparent 70%), radial-gradient(600px 300px at 70% 0, #70aa2655, transparent 70%), var(--bg);
     background-size: cover;
@@ -246,7 +246,7 @@ nav .links a {
     display: flex;
     gap: 70px;
     width: max-content;
-    animation: mq 25s linear infinite;
+    animation: mq 50s linear infinite;
     color: #b9c2ad;
     font-weight: 600;
     font-size: 18px;
@@ -306,7 +306,9 @@ nav .links a {
 
 .stats small {
     color: var(--mut);
-    font-size: 12px
+    font-size: 12px;
+    line-height: 20px;
+    display: block;
 }
 
 /* eng */
@@ -433,11 +435,15 @@ nav .links a {
 }
 
 .lc .ic {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 8px;
     background: var(--g);
-    margin-bottom: 18px
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
 }
 
 .lc .nm {
@@ -555,7 +561,7 @@ nav .links a {
     transition: flex .6s cubic-bezier(.2, .8, .2, 1);
     display: flex;
     align-items: flex-end;
-    padding: 24px;
+    padding: 24px 12px;
     border: 1px solid var(--line)
 }
 
@@ -588,10 +594,10 @@ nav .links a {
 
 .pan .n {
     position: absolute;
-    top: 18px;
-    left: 20px;
+    top: 20px;
+    left: 12px;
     z-index: 2;
-    font-size: 11px;
+    font-size: 10px;
     color: #ffffffaa
 }
 
@@ -1066,13 +1072,16 @@ footer {
     height: 60px;
     width: auto;
     transition: filter .25s, opacity .25s;
-    filter: grayscale();
+    /* filter: grayscale(); */
     opacity: .8;
+    transition: transform 0.3s;
 }
 
 .logos img:hover {
-    filter: grayscale(0);
+    /* filter: grayscale(0); */
     opacity: 1;
+    transform: scale(1.05);
+    transition: transform 0.3s;
 }
 
 .lc {
@@ -1539,6 +1548,7 @@ footer {
     }
     nav {
         background: linear-gradient(#060805, #000000);
+        padding: 12px 0;
     }
 
     nav .links.menu-open {
@@ -1679,6 +1689,18 @@ footer {
     #faq .faq details.rv.in {
         margin-bottom: 15px;
     }
+
+    .pan.on .info_ind h5 {
+    font-size: 16px;
+}
+.pan.on h4 {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+footer.footer .footer-bottom {
+    flex-direction: column-reverse;
+    gap: 12px;
+}
 }
 
 @media (max-width: 600px) {

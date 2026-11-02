@@ -55,6 +55,7 @@ function Footer() {
                         <p className="mt-4 max-w-sm text-sm leading-6 text-gray-300">
                             {footer.description}
                         </p>
+
                     </div>
 
                     {/* Footer Link Columns */}
@@ -161,6 +162,10 @@ function Footer() {
                     <p className="text-sm text-gray-400">
                         {footer.copyright}
                     </p>
+                    <div className="footer-iso-logo">
+                        <img src="https://app.exoticaitsolutions.com/wp-content/uploads/2026/11/iso-Photoroom.png" alt="Footer" className="iso-footer-logo" />
+                        <p>International Security Management</p>
+                    </div>
                 </div>
             </div>
         </footer>

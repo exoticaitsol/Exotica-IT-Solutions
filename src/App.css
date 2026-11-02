@@ -32,7 +32,7 @@ a {
 
 .hero {
   background: url(https://app.exoticaitsolutions.com/wp-content/uploads/2026/10/Hero-Banner.png);
-  padding: 100px 0 80px;
+  padding: 50px 0 40px;
   background-size: cover;
   background-attachment: fixed;
 }
@@ -78,6 +78,15 @@ footer.footer .footer-top {
 
 footer.footer .footer-bottom {
   padding-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-iso-logo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 footer.footer p,
@@ -549,12 +558,16 @@ section#talk h2,
 .hero-wrap {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .hero-wrap .hero-vedio {
   flex: 0 0 45%;
   max-width: 45%;
+}
+
+.hero-wrap .hero-content {
+    padding-top: 60px;
 }
 
 .hero-wrap .hero-vedio video {
@@ -664,7 +677,6 @@ section#talk h2,
 
 
 .footer-trust {
-  display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
   align-items: center;
   gap: 44px;
@@ -672,6 +684,7 @@ section#talk h2,
   margin-top: 40px;
   border-top: 1px solid rgba(255, 255, 255, 0.22);
   color: #f5f5f5;
+  display: none;
 }
 
 .footer-trust-intro {
@@ -744,7 +757,7 @@ section#talk h2,
 }
 
 .overservices {
-  padding-bottom: 0;
+  /* padding-bottom: 0; */
 }
 
 .overservices .logos {
@@ -776,6 +789,7 @@ display: grid;
     border-bottom: 1px solid #dce0d2;
     box-sizing: border-box;
     overflow: hidden;
+    display: none;
 }
 
 .trust-heading {
@@ -876,7 +890,47 @@ display: flex;
   }
 }
 
+img.iso-footer-logo {
+    max-width: 38px;
+}
+
+.info_ind h4 {
+    margin-bottom: 8px;
+}
+
+.info_ind p {
+    line-height: 20px;
+    font-size: 14px;
+    margin-block: 12px;
+    display: none;
+}
+
+.pan.on .info_ind p {
+    display: block;
+}
+
+.info_ind h5 {
+    font-size: 16px;
+    font-weight: 700 !important;
+    font-family: 'Inter' !important;
+    line-height: 20px;
+}
+
+.pan.on .info_ind h5 {
+    font-size: 24px;
+}
+
+.pan.on h4 {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
 @media (max-width: 700px) {
+
+  .hero-wrap .hero-content {
+    padding-top: 0;
+}
+
   .trust-strip {
     grid-template-columns: 1fr;
     gap: 20px;
