@@ -12,6 +12,7 @@ import ServicePage from "./pages/Service/ServicePage";
 import { DEFAULTS } from "./default";
 import useHome from "./useHome";
 import "./App.css";
+import RoiCalculatorPage from "./pages/RoiCalculatorPage";
 
 function App() {
   const { data } = useHome();
@@ -79,13 +80,22 @@ function App() {
             </>
           }
         />
-
-        <Route
-          path="/contact"
+<Route
+          path="/about"
           element={
             <>
               <Header />
-              <ContactPage />
+              <About />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/roi-calculator"
+          element={
+            <>
+              <Header />
+              <RoiCalculatorPage />
               <Footer />
             </>
           }

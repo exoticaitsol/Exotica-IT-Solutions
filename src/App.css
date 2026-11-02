@@ -32,7 +32,7 @@ a {
 
 .hero {
   background: url(https://app.exoticaitsolutions.com/wp-content/uploads/2026/10/Hero-Banner.png);
-  padding: 50px 0 40px;
+  padding: 50px 0 40px !important;
   background-size: cover;
   background-attachment: fixed;
 }
@@ -566,9 +566,9 @@ section#talk h2,
   max-width: 45%;
 }
 
-.hero-wrap .hero-content {
+/* .hero-wrap .hero-content {
     padding-top: 60px;
-}
+} */
 
 .hero-wrap .hero-vedio video {
   position: relative;
