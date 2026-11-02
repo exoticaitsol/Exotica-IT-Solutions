@@ -33,7 +33,7 @@ useEffect(() => {
   return (
     <nav>
       <div className="container">
-        <a className="logo" href={header.site_url || "/"}>
+        <a className="logo" href={"/"}>
           {header.logo?.url ? <img src={header.logo.url} alt="Exotica" /> : "Exotica"}
         </a>
         <button
