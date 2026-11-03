@@ -2550,6 +2550,9 @@ p.ab-lead {
     font-weight: 500;
     color: #09110E;
 }
+.ab-mission__copy h3 {
+    font-size: 36px;
+}
 
 @media(max-width:700px) {
 
