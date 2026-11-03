@@ -2559,6 +2559,13 @@ p.ab-lead {
     margin-bottom: 20px !important;
 }
 
+.ab-split--beliefs {
+    grid-template-columns: 7fr 7fr !important;
+}
+.ab-split__media--tall {
+    aspect-ratio: 0 / 1.1 !important;
+}
+
 @media(max-width:700px) {
 
   .ab-quote, .ab-hero__text p {
