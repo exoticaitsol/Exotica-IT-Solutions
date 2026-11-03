@@ -2601,4 +2601,14 @@ p.ab-lead {
 #top :is(.res) {
     padding: 26px 12px;
 }
+.ab-mission__copy h3 {
+    font-size: 26px;
+}
+.lead_border {
+    margin-bottom: 10px !important;
+    padding-bottom: 20px !important;
+}
+h2.ab-h2 {
+    margin-bottom: 20px;
+}
 }
