@@ -2544,7 +2544,18 @@ button:focus-visible) {
   font-size: 15px
 }
 
+p.ab-lead {
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 500;
+    color: #09110E;
+}
+
 @media(max-width:700px) {
+
+  .ab-quote, .ab-hero__text p {
+    font-size: 16px !important;
+}
 
   #top :is(.uc,
   .shots) {

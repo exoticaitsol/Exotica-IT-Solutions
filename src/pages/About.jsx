@@ -112,15 +112,15 @@ function Hero({ data }) {
 
 function Mission({ data }) {
   return (
-    <section className="ab-section ab-light">
+    <section className="ab-section ab-light mision-vission-section">
       <div className="ab-container">
         <Eyebrow>{data.mission_eyebrow}</Eyebrow>
-        <h2 className="ab-h2">
+        {/* <h2 className="ab-h2">
           {data.mission_title_before}{" "}
           <Highlight>{data.mission_highlight_1}</Highlight>{" "}
           {data.mission_title_middle}{" "}
           <Highlight>{data.mission_highlight_2}</Highlight>
-        </h2>
+        </h2> */}
         <div className="ab-split ab-split--mission">
           <div className="ab-split__media">
             {data.mission_image ? (
@@ -130,8 +130,10 @@ function Mission({ data }) {
             )}
           </div>
           <div className="ab-mission__copy">
-            <p className="ab-lead">{data.mission_lead}</p>
-            <p className="ab-muted">{data.mission_text}</p>
+            <h2>{data.mission_item_title}</h2>
+            <p className="ab-lead">{data.mission_item_text}</p>
+            <h2>{data.vision_item_title}</h2>
+            <p className="ab-lead">{data.vision_item_text}</p>
             {data.mission_quote && (
               <blockquote className="ab-quote">
                 {data.mission_quote}
