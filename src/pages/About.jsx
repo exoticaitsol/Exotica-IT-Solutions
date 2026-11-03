@@ -133,7 +133,7 @@ function Mission({ data }) {
             <h3>{data.mission_item_title}</h3>
             <p className="ab-lead lead_border">{data.mission_item_text}</p>
             <h3>{data.vision_item_title}</h3>
-            <p className="ab-lead">{data.vision_item_text}</p>
+            <p className="ab-lead lead_border">{data.vision_item_text}</p>
             {data.mission_quote && (
               <blockquote className="ab-quote">
                 {data.mission_quote}

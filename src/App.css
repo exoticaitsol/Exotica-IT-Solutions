@@ -2553,6 +2553,11 @@ p.ab-lead {
 .ab-mission__copy h3 {
     font-size: 36px;
 }
+.lead_border {
+    border-bottom: 1px solid #09110e17;
+    padding-bottom: 30px !important;
+    margin-bottom: 20px !important;
+}
 
 @media(max-width:700px) {
 
